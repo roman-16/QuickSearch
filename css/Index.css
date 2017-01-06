@@ -1,0 +1,82 @@
+@font-face {
+  font-family: 'Lato';
+  src: url('fonts/lato.woff2') format('woff2');
+}
+
+.parentDiv {
+  font-family: 'Lato';
+}
+
+.menubarDiv {
+  background-color: #525252;
+  position: absolute;
+  overflow-y: auto;
+  z-index: 1;
+  right: 0;
+  margin-left: 100%;
+  width: 0%;
+  height: 100%;
+}
+
+.menubarDiv * {
+  display: initial;
+}
+
+.menubarDiv > div {
+  float: left;
+  clear: left;
+  margin: 10px 10px 10px 10px;
+}
+
+.menuButton {
+  position: absolute;
+  background-color: transparent;
+  border: transparent;
+  right: 20px;
+  top: 20px;
+  z-index: 2;
+}
+
+.menuIcon {
+  color: #3a5b83;
+}
+
+.clockDiv {
+  position: absolute;
+  width: 40%;
+  top: 50%;
+  left: 50%;
+  margin: -150px 0% 0% -20%;
+  text-align: center;
+  font-size: 800%;
+  color: #3a5b83;
+}
+
+.searchDiv {
+  display: inline-block;
+  position: absolute;
+  width: 40%;
+  top: 50%;
+  left: 50%;
+  margin: 0% 0% 0% -20%
+}
+
+.searchInput {
+  padding: 6px 6px 6px 6px;
+  width: 100%;
+  color: #3a5b83;
+  border: 2px solid #3a5b83;
+}
+
+.searchInput:focus {
+  color: #000000;
+  border: 2px solid #525252;
+}
+
+.searchSuggestionsDiv input {
+  padding: 6px 6px 6px 6px;
+  background-color: #757575;
+  border: 2px solid transparent;
+  width: 100%;
+  text-align: left;
+}
