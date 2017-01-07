@@ -34,6 +34,9 @@ var Index = new function()
         search.focus();
 
         //TODO: Create user interface for Config.js
+        //TODO: Add facebook search
+        //TODO: show current quicksearch
+        //TODO: show help page
     }
 
 
