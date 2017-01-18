@@ -16,3 +16,6 @@ More quicksearches on websites can be added in the [config file](https://github.
 
 # Installation
 Download or clone the repository and open the [index.html](https://github.com/Wavum/wavum.github.io/blob/master/index.html) with your favorite browser.
+
+# Version
+1.0
