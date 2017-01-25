@@ -47,7 +47,7 @@ Homepage = function(homepage, quickSearchHotkeyStart, quickSearch, quickSearchHo
 
     this.openURL = function(value)
     {
-        value = encodeURIComponent(value);
+        value = encodeURI(value);
 
         if (value.startsWith("www."))
         {
