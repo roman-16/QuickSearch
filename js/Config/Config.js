@@ -7,7 +7,8 @@ var Config = new function()
                         ["g", "https://encrypted.google.com/#q="], ["y", "https://youtube.com/results?search_query="],
                         ["r", "https://reddit.com/search?q="], ["sr", "https://reddit.com/r/"], 
                         ["sx", "https://stackexchange.com/search?q="], ["so", "https://stackoverflow.com/search?q="],
-                        ["git", "https://github.com/search?q="], ["dict", "http://www.dict.cc/?s="]];
+                        ["git", "https://github.com/search?q="], ["dict", "https://www.dict.cc/?s="],
+                        ["wiki", "https://wikipedia.org/w/index.php?search="]];
     this.quickSearchHotkeyEnd = " ";
     this.useSearchSuggestions = true;
     this.numberOfSearchSuggestions = 4;
