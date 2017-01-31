@@ -28,7 +28,7 @@ Homepage = function(homepage, quickSearchHotkeyStart, quickSearch, quickSearchHo
             {
                 if (value.startsWith(quickSearchHotkeys[i]))
                 {
-                    me.openURL(quickSearch[i][1] + value.replace(quickSearchHotkeys[i], ""));
+                    me.openURL(quickSearch[i][1] + encodeURIComponent(value.replace(quickSearchHotkeys[i], "")));
                     return;
                 }
             }
@@ -42,13 +42,11 @@ Homepage = function(homepage, quickSearchHotkeyStart, quickSearch, quickSearchHo
         }
         
         //Normal search
-        me.openURL(homepage + value);
+        me.openURL(homepage + encodeURIComponent(value));
     }
 
     this.openURL = function(value)
     {
-        value = encodeURI(value);
-
         if (value.startsWith("www."))
         {
             window.open("http://" + value, "_self");
