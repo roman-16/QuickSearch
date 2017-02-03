@@ -6,10 +6,10 @@
 ## Config
 The you can edit your [QuickSearch](http://quicksearch.site) with a [config file](https://github.com/Wavum/wavum.github.io/blob/master/js/Config/Config.js).
 
-## Seachsuggestions
+## SeachSuggestions
 [QuickSearch](http://quicksearch.site) uses [Google-Searchsuggestion](https://suggestqueries.google.com/complete/search?output=toolbar&q=test) which can be turned off with the [config file](https://github.com/Wavum/wavum.github.io/blob/master/js/Config/Config.js).
 
-## Quicksearch
+## QuickSearch
 You can use quicksearch to open a website with your searchquery.
 For example `g test` will open [Google](https://encrypted.google.com/#q=test) with the searchquery `test`.
 More quicksearches on websites can be added in the [config file](https://github.com/Wavum/wavum.github.io/blob/master/js/Config/Config.js).
