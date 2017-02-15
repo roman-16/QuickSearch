@@ -1,4 +1,4 @@
-# [QuickSearch](http://quicksearch.site)
+# QuickSearch
 [QuickSearch](http://quicksearch.site) is a fast and lightweight open source website that should be used as homepage.
 [QuickSearch](http://quicksearch.site) increases the speed and privacy of a search.
 
@@ -17,7 +17,7 @@ The you can edit your [QuickSearch](http://quicksearch.site) with a [config file
 # Installation
 Download or clone the repository and open the [index.html](https://github.com/Wavum/wavum.github.io/blob/master/index.html) with your favorite browser.
 
-# [Future](https://github.com/Wavum/QuickSearch/projects)
+# Future
 Future projects will be shown on the [project page](https://github.com/Wavum/QuickSearch/projects).
 
 # Version
