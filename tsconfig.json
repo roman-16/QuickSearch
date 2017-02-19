@@ -1,0 +1,14 @@
+﻿{
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "removeComments": false,
+        "preserveConstEnums": true,
+        //"sourceMap": true,
+        "compileOnSave": true,
+        //"outFile": "index.js",
+        "target": "es5"
+    },
+    "include": [
+        "js/**/*"
+    ]
+}

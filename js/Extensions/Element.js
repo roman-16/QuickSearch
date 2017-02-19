@@ -1,4 +1,3 @@
-Element.prototype.remove = function()
-{
+Element.prototype.remove = function remove() {
     this.parentElement.removeChild(this);
-}
+};

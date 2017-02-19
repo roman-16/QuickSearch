@@ -1,0 +1,4 @@
+interface ILayout
+{
+    getElement(): HTMLDivElement;
+}

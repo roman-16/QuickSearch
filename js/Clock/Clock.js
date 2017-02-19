@@ -1,56 +1,42 @@
-Clock = function(parent)
-{
-	var me = this;
-    var clockDiv = document.createElement("div");
-    var clock = document.createElement("time");
-    var separator = ":";
-
-    
-
-    this.updateTime = function()
-    {
+var Clock = (function () {
+    function Clock(parent) {
+        this.clockDiv = document.createElement("div");
+        this.clock = document.createElement("time");
+        this.separator = ":";
+        this.clockDiv.className = "clockDiv";
+        this.clock.className = "clock";
+        parent.appendChild(this.clockDiv);
+        this.clockDiv.appendChild(this.clock);
+        this.initInterval();
+    }
+    Clock.prototype.initInterval = function () {
+        this.updateTime();
+        setInterval(this.updateTime.bind(this), 10000);
+    };
+    Clock.prototype.updateTime = function () {
         var date = new Date();
-        var hours = pad(date.getHours());
-        var minutes = pad(date.getMinutes());
-        clock.innerHTML = hours + separator + minutes;
-    }
-
-    this.setSeparator = function(value)
-    {
-        separator = value;
-        
-        me.updateTime();
-    }
-
-    this.setColor = function(value)
-    {
-        clock.style.color = value;
-
-        me.updateTime();
-    }
-
-
-
-    init();
-    function init()
-    {
-        clockDiv.className = "clockDiv";
-        clock.className = "clock";
-
-        parent.appendChild(clockDiv);
-        clockDiv.appendChild(clock);
-        
-        initInterval();
-    }
-
-    function initInterval()
-    {
-        me.updateTime();
-        setInterval(me.updateTime, 10000);
-    }
-
-    function pad(num)
-    {
-        return ('0' + num.toString()).slice(-2);
-    }
-}
+        var hours = this.format(date.getHours());
+        var minutes = this.format(date.getMinutes());
+        this.clock.innerHTML = hours + this.separator + minutes;
+    };
+    Clock.prototype.format = function (num) {
+        return ("0" + num.toString()).slice(-2);
+    };
+    Object.defineProperty(Clock.prototype, "Seperator", {
+        set: function (value) {
+            this.separator = value;
+            this.updateTime();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Clock.prototype, "Color", {
+        set: function (value) {
+            this.clock.style.color = value;
+            this.updateTime();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return Clock;
+}());

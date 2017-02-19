@@ -1,204 +1,172 @@
-Search = function(parent, homepage, quickSearchHotkeyStart, quickSearch, quickSearchHotkeyEnd)
-{
-	var me = this;
-	var searchDiv = document.createElement("div");
-	var searchInputDiv = document.createElement("div");
-	var searchInput = document.createElement("input");
-	var searchSuggestionsDiv = document.createElement("div");
-	var searchSuggestions;
-	var useSearchSuggestions = true;
-	var backgroundColor = "#363636";
-	var backgroundColorFocus = "#525252";
-	var borderColor = "#3a5b83";
-	var borderColorFocus = "#525252";
-	var fontColor = "#3a5b83";
-	var fontColorFocus = "#000000";
-
-	if (arguments.length > 4)
-	{
-		Homepage.apply(this, [homepage, quickSearchHotkeyStart, quickSearch, quickSearchHotkeyEnd]);
-	}
-	else
-	{
-		Homepage.apply(this, [homepage]);
-	}
-
-
-
-	this.focus = function()
-	{
-		searchInput.focus();
-	}
-
-	this.getSearchSuggestions = function()
-	{
-		return searchSuggestions;
-	}
-
-	this.setUseSearchSuggestions = function(value)
-	{
-		useSearchSuggestions = value;
-	}
-
-	this.setBackgroundColor = function(value)
-	{
-		backgroundColor = value;
-	}
-	
-	this.setBackgroundColorFocus = function(value)
-	{
-		backgroundColorFocus = value;
-	}
-
-	this.setBorderColor = function(value)
-	{
-		borderColor = value;
-	}
-	
-	this.setBorderColorFocus = function(value)
-	{
-		borderColorFocus = value;
-	}
-
-	this.setFontColor = function(value)
-	{
-		fontColor = value;
-	}
-	
-	this.setFontColorFocus = function(value)
-	{
-		fontColorFocus = value;
-	}
-
-
-
-	init();
-	function init()
-	{
-		searchSuggestions = new SearchSuggestions(searchSuggestionsDiv);
-		searchSuggestions.onMouseClick = searchSuggestionClicked;
-		
-		searchDiv.className = "searchDiv";
-		searchInputDiv.className = "searchInputDiv";
-		searchInput.className = "searchInput";
-		searchInput.type = "text";
-		searchInput.autocomplete = "off";
-		searchInput.autofocus = true;
-		searchInput.onkeyup = keyPressed;
-		searchInput.onfocus = focused;
-		searchInput.onblur = blured;
-		searchSuggestionsDiv.className = "searchSuggestionsParentDiv";
-
-		searchDiv.appendChild(searchInputDiv);
-		searchInputDiv.appendChild(searchInput);
-		searchDiv.appendChild(searchSuggestionsDiv);
-		parent.appendChild(searchDiv);
-	}
-	
-	function keyPressed(ev)
-	{
-		var value = searchInput.value;
-
-		if (ev.keyCode == 13)
-		{
-			me.openHomepage(value.trim());
-		}
-		else if (ev.keyCode == 34 || ev.keyCode == 40)
-		{
-			//Select lower search suggestion
-			value = keepQuickSearchHotkey(value) + searchSuggestions.selectDownwards();
-		}
-		else if (ev.keyCode == 33 || ev.keyCode == 38)
-		{
-			//Select upper search suggestion
-			value = keepQuickSearchHotkey(value) + searchSuggestions.selectUpwards();
-		}
-		else if (ev.keyCode == 27)
-		{
-			//Hide search suggestion on escape
-			searchSuggestions.hideSearchSuggestions();
-		}
-		else if (useSearchSuggestions)
-		{
-			searchSuggestions.showSearchSuggestions(removeQuickSearchHotkey(value));
-		}
-		
-		//TODO: Key up, set cursor to last position (rework feature like google)
-		searchInput.focus();
-		searchInput.value = value;
-	}
-
-	function focused(ev)
-	{
-		searchInput.style.backgroundColor = backgroundColorFocus;
-		searchInput.style.borderColor = borderColorFocus;
-		searchInput.style.color = fontColorFocus;
-	}
-
-	function blured(ev)
-	{
-		searchInput.style.backgroundColor = backgroundColor;
-		searchInput.style.borderColor = borderColor;
-		searchInput.style.color = fontColor;
-
-		searchSuggestions.hideSearchSuggestions(ev);
-	}
-
-	function searchSuggestionClicked(ev)
-	{
-        searchInput.value = keepQuickSearchHotkey(searchInput.value) + ev.target.value;
-        searchInput.focus();
-
-		searchSuggestions.showSearchSuggestions(removeQuickSearchHotkey(searchInput.value));
-	}
-
-	function removeQuickSearchHotkey(value)
-	{
-		if (quickSearch === undefined)
-		{
-			return value;
-		}
-
-		var quickSearchHotkeys = quickSearch.getColumn(0);
-
-		for (var i = 0; i < quickSearchHotkeys.length; i++)
-		{
-			quickSearchHotkeys[i] = quickSearchHotkeyStart + quickSearchHotkeys[i] + quickSearchHotkeyEnd;
-		}
-		
-		for (var i = 0; i < quickSearchHotkeys.length; i++)
-		{
-			if (value.startsWith(quickSearchHotkeys[i]))
-			{
-				return value.replace(quickSearchHotkeys[i], "");
-			}
-		}
-
-		return value;
-	}
-
-	function keepQuickSearchHotkey(value)
-	{
-		if (quickSearch === undefined)
-		{
-			return value;
-		}
-
-		var quickSearchHotkeys = quickSearch.getColumn(0);
-
-		for (var i = 0; i < quickSearchHotkeys.length; i++)
-		{
-			quickSearchHotkeys[i] = quickSearchHotkeyStart + quickSearchHotkeys[i] + quickSearchHotkeyEnd;
-		}
-		
-		for (var i = 0; i < quickSearchHotkeys.length; i++)
-		{
-			if (value.startsWith(quickSearchHotkeys[i]))
-			{
-				return quickSearchHotkeys[i];
-			}
-		}
-
-		return "";
-	}
-}
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var Search = (function (_super) {
+    __extends(Search, _super);
+    function Search(parent, homepage, quickSearchHotkeyStart, quickSearch, quickSearchHotkeyEnd) {
+        if (quickSearchHotkeyStart === void 0) { quickSearchHotkeyStart = ""; }
+        if (quickSearch === void 0) { quickSearch = [["", ""]]; }
+        if (quickSearchHotkeyEnd === void 0) { quickSearchHotkeyEnd = ""; }
+        var _this = _super.call(this, homepage, quickSearchHotkeyStart, quickSearch, quickSearchHotkeyEnd) || this;
+        _this.searchDiv = document.createElement("div");
+        _this.searchInputDiv = document.createElement("div");
+        _this.searchInput = document.createElement("input");
+        _this.searchSuggestionsDiv = document.createElement("div");
+        _this.useSearchSuggestions = true;
+        _this.backgroundColor = "#363636";
+        _this.backgroundColorFocus = "#525252";
+        _this.borderColor = "#363636";
+        _this.borderColorFocus = "#525252";
+        _this.fontColor = "#3a5b83";
+        _this.fontColorFocus = "#000000";
+        _this.parent = parent;
+        _this.searchSuggestions = new SearchSuggestions(_this.searchSuggestionsDiv);
+        _this.searchSuggestions.addEventListener("SearchSuggestionsClicked", _this.searchSuggestionClicked.bind(_this));
+        _this.searchDiv.className = "searchDiv";
+        _this.searchInputDiv.className = "searchInputDiv";
+        _this.searchInput.className = "searchInput";
+        _this.searchInput.type = "text";
+        _this.searchInput.autocomplete = "off";
+        _this.searchInput.autofocus = true;
+        _this.searchInput.onkeyup = _this.keyPressed.bind(_this);
+        _this.searchInput.onfocus = _this.focused.bind(_this);
+        _this.searchInput.onblur = _this.blured.bind(_this);
+        _this.searchSuggestionsDiv.className = "searchSuggestionsParentDiv";
+        _this.searchDiv.appendChild(_this.searchInputDiv);
+        _this.searchInputDiv.appendChild(_this.searchInput);
+        _this.searchDiv.appendChild(_this.searchSuggestionsDiv);
+        _this.parent.appendChild(_this.searchDiv);
+        return _this;
+    }
+    Search.prototype.focus = function () {
+        this.searchInput.focus();
+    };
+    Object.defineProperty(Search.prototype, "SearchSuggestions", {
+        get: function () {
+            return this.searchSuggestions;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Search.prototype, "UseSearchSuggestions", {
+        set: function (value) {
+            this.useSearchSuggestions = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Search.prototype, "BackgroundColor", {
+        set: function (value) {
+            this.backgroundColor = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Search.prototype, "BackgroundColorFocus", {
+        set: function (value) {
+            this.backgroundColorFocus = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Search.prototype, "BorderColor", {
+        set: function (value) {
+            this.borderColor = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Search.prototype, "BorderColorFocus", {
+        set: function (value) {
+            this.borderColorFocus = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Search.prototype, "FontColor", {
+        set: function (value) {
+            this.fontColor = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Search.prototype, "FontColorFocus", {
+        set: function (value) {
+            this.fontColorFocus = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Search.prototype.keyPressed = function (ev) {
+        var value = this.searchInput.value;
+        if (ev.keyCode == 13) {
+            this.openHomepage(value.trim());
+        }
+        else if (ev.keyCode == 34 || ev.keyCode == 40) {
+            //Select lower search suggestion
+            value = this.keepQuickSearchHotkey(value) + this.searchSuggestions.selectDownwards();
+        }
+        else if (ev.keyCode == 33 || ev.keyCode == 38) {
+            //Select upper search suggestion
+            value = this.keepQuickSearchHotkey(value) + this.searchSuggestions.selectUpwards();
+        }
+        else if (ev.keyCode == 27) {
+            //Hide search suggestion on escape
+            this.searchSuggestions.hideSearchSuggestions();
+        }
+        else if (this.useSearchSuggestions) {
+            this.searchSuggestions.showSearchSuggestions(this.removeQuickSearchHotkey(value));
+        }
+        //TODO: Key up, set cursor to last position (rework feature like google)
+        this.searchInput.focus();
+        this.searchInput.value = value;
+    };
+    Search.prototype.focused = function (ev) {
+        this.searchInput.style.backgroundColor = this.backgroundColorFocus;
+        this.searchInput.style.borderColor = this.borderColorFocus;
+        this.searchInput.style.color = this.fontColorFocus;
+    };
+    Search.prototype.blured = function (ev) {
+        this.searchInput.style.backgroundColor = this.backgroundColor;
+        this.searchInput.style.borderColor = this.borderColor;
+        this.searchInput.style.color = this.fontColor;
+    };
+    Search.prototype.searchSuggestionClicked = function (ev) {
+        this.searchInput.value = this.keepQuickSearchHotkey(this.searchInput.value) + ev.target.value;
+        this.searchInput.focus();
+        this.searchSuggestions.showSearchSuggestions(this.removeQuickSearchHotkey(this.searchInput.value));
+    };
+    Search.prototype.removeQuickSearchHotkey = function (value) {
+        if (!this.useQuickSearch) {
+            return value;
+        }
+        var quickSearchHotkeys = this.quickSearch.getColumn(0);
+        for (var i = 0; i < quickSearchHotkeys.length; i++) {
+            quickSearchHotkeys[i] = this.quickSearchHotkeyStart + quickSearchHotkeys[i] + this.quickSearchHotkeyEnd;
+        }
+        for (var i = 0; i < quickSearchHotkeys.length; i++) {
+            if (value.startsWith(quickSearchHotkeys[i])) {
+                return value.replace(quickSearchHotkeys[i], "");
+            }
+        }
+        return value;
+    };
+    Search.prototype.keepQuickSearchHotkey = function (value) {
+        if (!this.useQuickSearch) {
+            return value;
+        }
+        var quickSearchHotkeys = this.quickSearch.getColumn(0);
+        for (var i = 0; i < quickSearchHotkeys.length; i++) {
+            quickSearchHotkeys[i] = this.quickSearchHotkeyStart + quickSearchHotkeys[i] + this.quickSearchHotkeyEnd;
+        }
+        for (var i = 0; i < quickSearchHotkeys.length; i++) {
+            if (value.startsWith(quickSearchHotkeys[i])) {
+                return quickSearchHotkeys[i];
+            }
+        }
+        return "";
+    };
+    return Search;
+}(Homepage));
