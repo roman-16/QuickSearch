@@ -283,7 +283,19 @@
 
     private mouseClicked(ev: MouseEvent): void
     {
-        let event: MouseEvent = new MouseEvent("SearchSuggestionsClicked", ev);
+        let event: MouseEvent;
+
+        if (document.createEvent)
+        {
+            //Workaround for internet explorer
+            event = document.createEvent("MouseEvent");
+
+            event.initMouseEvent("SearchSuggestionsClicked", true, true, ev.view, ev.detail, ev.screenX, ev.screenY, ev.clientX, ev.clientY, ev.ctrlKey, ev.altKey, ev.shiftKey, ev.metaKey, ev.button, ev.relatedTarget);
+        }
+        else
+        {
+            event = new MouseEvent("SearchSuggestionsClicked", ev);
+        }
 
         ev.target.dispatchEvent(event);
     }
