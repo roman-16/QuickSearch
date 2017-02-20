@@ -19,7 +19,6 @@ var ConfigValue = (function () {
         localStorage.setItem(this.name, stringifiedValue);
     };
     ConfigValue.prototype.isSavedValue = function () {
-        var test = localStorage.getItem(this.name);
         return localStorage.getItem(this.name) !== null;
     };
     Object.defineProperty(ConfigValue.prototype, "Name", {

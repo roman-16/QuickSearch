@@ -3,6 +3,11 @@
   src: url('fonts/lato.woff2') format('woff2');
 }
 
+/* Turn chromes blue border off */
+*:focus {
+    outline: none;
+}
+
 .parentDiv {
   font-family: 'Lato';
 }
