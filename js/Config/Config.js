@@ -77,7 +77,7 @@ Config.quickSearch = new ConfigValue("quickSearch", [["d", "https://start.duckdu
     ["g", "https://encrypted.google.com/#q="], ["y", "https://youtube.com/results?search_query="],
     ["r", "https://reddit.com/search?q="], ["sr", "https://reddit.com/r/"],
     ["sx", "https://stackexchange.com/search?q="], ["so", "https://stackoverflow.com/search?q="],
-    ["gh", "https://github.com/search?q="], ["f", "https://www.facebook.com/public?query="]]);
+    ["git", "https://github.com/search?q="], ["f", "https://www.facebook.com/public?query="]]);
 Config.quickSearchHotkeyEnd = new ConfigValue("quickSearchHotkeyEnd", " ");
 Config.useSearchSuggestions = new ConfigValue("useSearchSuggestions", true);
 Config.numberOfSearchSuggestions = new ConfigValue("numberOfSearchSuggestions", 4);
