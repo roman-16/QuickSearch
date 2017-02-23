@@ -138,7 +138,19 @@
         if (!this.isFirstExpanded)
         {
             //Fire event
-            let event: CustomEvent = new CustomEvent("SidebarFirstExpand");
+            let event: CustomEvent;
+
+            if (document.createEvent)
+            {
+                //Workaround for internet explorer
+                event = document.createEvent("CustomEvent");
+
+                event.initCustomEvent("SidebarFirstExpand", true, true, {} );
+            }
+            else
+            {
+                event = new CustomEvent("SidebarFirstExpand");
+            }
 
             window.dispatchEvent(event);
 
