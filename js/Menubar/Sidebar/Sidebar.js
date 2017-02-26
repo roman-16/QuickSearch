@@ -113,16 +113,7 @@ var Sidebar = (function () {
     Sidebar.prototype.expand = function () {
         if (!this.isFirstExpanded) {
             //Fire event
-            var event_1;
-            if (document.createEvent) {
-                //Workaround for internet explorer
-                event_1 = document.createEvent("CustomEvent");
-                event_1.initCustomEvent("SidebarFirstExpand", true, true, {});
-            }
-            else {
-                event_1 = new CustomEvent("SidebarFirstExpand");
-            }
-            window.dispatchEvent(event_1);
+            this.fireEvent("SidebarFirstExpand");
             this.isFirstExpanded = true;
         }
         this.menuIcon.style.opacity = "0.0";

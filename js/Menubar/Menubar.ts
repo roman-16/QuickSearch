@@ -14,7 +14,8 @@
         this.parent = parent;
         this.sidebar = new Sidebar(this.parent);
 
-        this.sidebar.addEventListener("SidebarFirstExpand", this.addElements.bind(this));
+        //this.sidebar.addEventListener("SidebarFirstExpand", this.addElements.bind(this));
+        this.sidebar.listenToEvent("SidebarFirstExpand", this.addElements.bind(this));
     }
 
 

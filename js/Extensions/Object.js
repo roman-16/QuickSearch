@@ -1,18 +1,36 @@
+Object.prototype.CustomEventListeners = new Array();
 Object.prototype.listenToEvent = function listenToEvent(eventName, callback) {
-    this.addEventListener(eventName, callback, false);
+    this.CustomEventListeners.push(new CustomEventListener(eventName, callback));
 };
 Object.prototype.unlistenFromEvent = function unlistenFromEvent(eventName, callback) {
-    this.removeEventListener(eventName, callback, false);
+    var index = this.CustomEventListeners.indexOf(new CustomEventListener(eventName, callback));
+    this.CustomEventListeners.splice(index, 1);
 };
 Object.prototype.fireEvent = function fireEvent(eventName) {
-    var event;
-    if (document.createEvent) {
-        //Workaround for internet explorer
-        event = document.createEvent("CustomEvent");
-        event.initEvent(eventName, true, true);
+    for (var i = 0; i < this.CustomEventListeners.length; i++) {
+        if (this.CustomEventListeners[i].EventName === eventName) {
+            this.CustomEventListeners[i].Callback(this);
+        }
     }
-    else {
-        event = new CustomEvent(eventName);
-    }
-    this.dispatchEvent(event);
 };
+var CustomEventListener = (function () {
+    function CustomEventListener(eventName, callback) {
+        this.eventName = eventName;
+        this.callback = callback;
+    }
+    Object.defineProperty(CustomEventListener.prototype, "EventName", {
+        get: function () {
+            return this.eventName;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(CustomEventListener.prototype, "Callback", {
+        get: function () {
+            return this.callback;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return CustomEventListener;
+}());

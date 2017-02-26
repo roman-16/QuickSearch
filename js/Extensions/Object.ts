@@ -1,35 +1,59 @@
 interface Object
 {
+    CustomEventListeners: CustomEventListener[];
+
     listenToEvent(eventName: string, callback: Function): void;
     unlistenFromEvent(eventName: string, callback: Function): void;
     fireEvent(eventName: string): void;
 }
 
+Object.prototype.CustomEventListeners = new Array<CustomEventListener>();
+
 Object.prototype.listenToEvent = function listenToEvent(eventName: string, callback: Function): void
 {
-    this.addEventListener(eventName, callback, false);
+    this.CustomEventListeners.push(new CustomEventListener(eventName, callback));
 }
 
 Object.prototype.unlistenFromEvent = function unlistenFromEvent(eventName: string, callback: Function): void
 {
-    this.removeEventListener(eventName, callback, false);
+    let index: number = this.CustomEventListeners.indexOf(new CustomEventListener(eventName, callback));
+
+    this.CustomEventListeners.splice(index, 1);
 }
 
 Object.prototype.fireEvent = function fireEvent(eventName: string): void
 {
-    let event: CustomEvent;
-    
-    if (document.createEvent)
+    for (let i: number = 0; i < this.CustomEventListeners.length; i++)
     {
-        //Workaround for internet explorer
-        event = document.createEvent("CustomEvent");
-
-        event.initEvent(eventName, true, true);
+        if (this.CustomEventListeners[i].EventName === eventName)
+        {
+            this.CustomEventListeners[i].Callback(this);
+        }
     }
-    else
+}
+
+class CustomEventListener
+{
+    private eventName: string;
+    private callback: Function;
+
+
+
+    public constructor(eventName: string, callback: Function)
     {
-        event = new CustomEvent(eventName);
+        this.eventName = eventName;
+        this.callback = callback;
     }
 
-    this.dispatchEvent(event);
+
+
+    public get EventName(): string
+    {
+        return this.eventName;
+    }
+
+    public get Callback(): Function
+    {
+        return this.callback;
+    }
 }
