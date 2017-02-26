@@ -28,7 +28,7 @@ var Search = (function (_super) {
         _this.fontColorFocus = "#000000";
         _this.parent = parent;
         _this.searchSuggestions = new SearchSuggestions(_this.searchSuggestionsDiv);
-        _this.searchSuggestions.addEventListener("SearchSuggestionsClicked", _this.searchSuggestionClicked.bind(_this));
+        _this.SearchSuggestions.listenToEvent("SearchSuggestionsClicked", _this.searchSuggestionClicked.bind(_this));
         _this.searchDiv.className = "searchDiv";
         _this.searchInputDiv.className = "searchInputDiv";
         _this.searchInput.className = "searchInput";
@@ -138,8 +138,8 @@ var Search = (function (_super) {
         this.searchInput.style.borderColor = this.borderColor;
         this.searchInput.style.color = this.fontColor;
     };
-    Search.prototype.searchSuggestionClicked = function (ev) {
-        this.searchInput.value = this.keepQuickSearchHotkey(this.searchInput.value) + ev.target.value;
+    Search.prototype.searchSuggestionClicked = function (target) {
+        this.searchInput.value = this.keepQuickSearchHotkey(this.searchInput.value) + target.value;
         this.searchInput.focus();
         this.searchSuggestions.showSearchSuggestions(this.removeQuickSearchHotkey(this.searchInput.value));
     };

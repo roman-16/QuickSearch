@@ -3,7 +3,6 @@ var Menubar = (function () {
         this.configChildren = new Array();
         this.parent = parent;
         this.sidebar = new Sidebar(this.parent);
-        //this.sidebar.addEventListener("SidebarFirstExpand", this.addElements.bind(this));
         this.sidebar.listenToEvent("SidebarFirstExpand", this.addElements.bind(this));
     }
     Object.defineProperty(Menubar.prototype, "Sidebar", {
