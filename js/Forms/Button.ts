@@ -45,9 +45,7 @@
 
     private mouseClicked(ev: MouseEvent): void
     {
-        let event: MouseEvent = new MouseEvent("ButtonClicked", ev);
-
-        this.buttonDiv.dispatchEvent(event);
+        this.fireEvent("ButtonClicked");
     }
 
     private hovered(): void

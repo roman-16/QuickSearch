@@ -868,8 +868,7 @@ var Button = (function () {
         return this.buttonDiv;
     };
     Button.prototype.mouseClicked = function (ev) {
-        var event = new MouseEvent("ButtonClicked", ev);
-        this.buttonDiv.dispatchEvent(event);
+        this.fireEvent("ButtonClicked");
     };
     Button.prototype.hovered = function () {
         this.isHovered = true;
@@ -1137,10 +1136,10 @@ var Menubar = (function () {
         this.saveButton = new Button("Save");
         this.saveButton.BackgroundColorHover = Config.ShapeColor.Value;
         this.saveButton.Margin = "0px 20px 0px 0px";
-        this.saveButton.addEventListener("ButtonClicked", this.saveClicked.bind(this));
+        this.saveButton.listenToEvent("ButtonClicked", this.saveClicked.bind(this));
         this.resetButton = new Button("Reset");
         this.resetButton.BackgroundColorHover = Config.ShapeColor.Value;
-        this.resetButton.addEventListener("ButtonClicked", this.resetClicked.bind(this));
+        this.resetButton.listenToEvent("ButtonClicked", this.saveClicked.bind(this));
         this.buttonLayout = new ParallelLayout(this.saveButton.getElement());
         this.buttonLayout.appendChild(this.resetButton.getElement());
         this.sidebar.appendLayout(this.buttonLayout);
@@ -1177,7 +1176,7 @@ var Menubar = (function () {
         this.sidebar.appendInput(input);
         this.configChildren.push(config);
     };
-    Menubar.prototype.saveClicked = function (ev) {
+    Menubar.prototype.saveClicked = function (target) {
         var inputChildren = this.sidebar.InputChildren;
         for (var i = 0; i < inputChildren.length; i++) {
             try {
@@ -1196,7 +1195,7 @@ var Menubar = (function () {
         }
         location.reload();
     };
-    Menubar.prototype.resetClicked = function (ev) {
+    Menubar.prototype.resetClicked = function (target) {
         Config.reset();
         location.reload();
     };

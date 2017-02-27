@@ -43,10 +43,10 @@
         this.saveButton = new Button("Save");
         this.saveButton.BackgroundColorHover = Config.ShapeColor.Value;
         this.saveButton.Margin = "0px 20px 0px 0px";
-        this.saveButton.addEventListener("ButtonClicked", this.saveClicked.bind(this));
+        this.saveButton.listenToEvent("ButtonClicked", this.saveClicked.bind(this));
         this.resetButton = new Button("Reset");
         this.resetButton.BackgroundColorHover = Config.ShapeColor.Value;
-        this.resetButton.addEventListener("ButtonClicked", this.resetClicked.bind(this));
+        this.resetButton.listenToEvent("ButtonClicked", this.saveClicked.bind(this));
         this.buttonLayout = new ParallelLayout(this.saveButton.getElement());
         this.buttonLayout.appendChild(this.resetButton.getElement());
 
@@ -97,7 +97,7 @@
         this.configChildren.push(config);
     }
 
-    private saveClicked(ev: MouseEvent): void
+    private saveClicked(target: Object): void
     {
         let inputChildren: Array<IInputForm> = this.sidebar.InputChildren;
 
@@ -125,7 +125,7 @@
         location.reload();
     }
 
-    private resetClicked(ev: MouseEvent): void
+    private resetClicked(target: Object): void
     {
         Config.reset();
 
