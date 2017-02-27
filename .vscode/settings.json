@@ -9,5 +9,5 @@
         "**/*.js": true,
         "**/*.js.map": true
     },
-    "typescript.tsdk": "C:/Users/Wavum/AppData/Roaming/npm/node_modules/typescript/lib"
+    "typescript.tsdk": "C:/Users/Wavum/AppData/Roaming/npm/node_modules/typescript/lib",
 }

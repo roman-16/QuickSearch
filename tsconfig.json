@@ -3,12 +3,31 @@
         "noImplicitAny": true,
         "removeComments": false,
         "preserveConstEnums": true,
-        //"sourceMap": true,
+        "sourceMap": true,
         "compileOnSave": true,
-        //"outFile": "index.js",
+        "outFile": "js/index.js",
         "target": "es5"
     },
     "include": [
-        "js/**/*"
+        "js/Extensions/Object.ts",
+        "js/Extensions/String.ts",
+        "js/Extensions/Array.ts",
+        "js/Extensions/Element.ts",
+        "js/Extensions/Document.ts",
+        "js/Util/CookieHandler.ts",
+        "js/Config/ConfigValue/ConfigValue.ts",
+        "js/Config/Config.ts",
+        "js/Data/GoogleData.ts",
+        "js/Clock/Clock.ts",
+        "js/Search/SearchSuggestions.ts",
+        "js/Search/Homepage.ts",
+        "js/Search/Search.ts",
+        "js/Forms/Layouts/ParallelLayout.ts",
+        "js/Forms/TextInput.ts",
+        "js/Forms/BigTextInput.ts",
+        "js/Forms/Button.ts",
+        "js/Menubar/Sidebar/Sidebar.ts",
+        "js/Menubar/Menubar.ts",
+        "js/Index.ts"
     ]
 }
