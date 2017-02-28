@@ -2,7 +2,7 @@
 {
     private parent: HTMLDivElement;
     private searchSuggestionsDiv: HTMLDivElement = document.createElement("div");
-    private selectedButton: number = null;
+    private selectedButton: number | null = null;
     private currentSearchSuggestionsData: any;
     private inputValue: string;
     private backgroundColor: string = "#757575";
@@ -202,12 +202,17 @@
             }
         }
 
-        let searchSuggestionButton: HTMLButtonElement = <HTMLButtonElement>searchSuggestionButtons.item(this.selectedButton);
+        if (this.selectedButton !== null)
+        {
+            let searchSuggestionButton: HTMLButtonElement = <HTMLButtonElement>searchSuggestionButtons.item(this.selectedButton);
 
-        searchSuggestionButton.style.background = this.backgroundColorFocus;
-        searchSuggestionButton.style.color = this.fontColorFocus;
+            searchSuggestionButton.style.background = this.backgroundColorFocus;
+            searchSuggestionButton.style.color = this.fontColorFocus;
 
-        return searchSuggestionButton.value;
+            return searchSuggestionButton.value;
+        }
+        
+        return "";
     }
 
     private resetSelectedButton(): void

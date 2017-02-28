@@ -38,7 +38,6 @@ class Index
 
         this.search.focus();
 
-        //TODO: Create user interface for Config.js
         //TODO: show current quicksearch
         //TODO: show help page
         //TODO: Show little popup ("search something...") on first start
@@ -63,30 +62,18 @@ class Index
 
         //Set search input color
         //FIXME: strange color on reload
-        //this.search.BackgroundColor = Config.BasicColor.Value;
-        //this.search.BackgroundColorFocus = Config.BasicColorFocus.Value;
         this.search.BorderColor = Config.ShapeColor.Value;
-        //this.search.BorderColorFocus = Config.BasicColorFocus.Value;
         this.search.FontColor = Config.ShapeColor.Value;
-        //this.search.FontColorFocus = Config.BasicShapeColorFocus.Value;
 
         //Set search suggestions color
         let searchSuggestions: SearchSuggestions = this.search.SearchSuggestions;
 
-        //searchSuggestions.BackgroundColor = Config.SecondColor.Value;
         searchSuggestions.BackgroundColorFocus = Config.ShapeColor.Value;
-        //searchSuggestions.FontColor = Config.BasicShapeColorFocus.Value;
-        //searchSuggestions.FontColorFocus = Config.BasicShapeColorFocus.Value;
 
         //Set menubar color
         let sidebar: Sidebar = this.menubar.Sidebar;
 
-        //sidebar.BackgroundColor = Config.BasicColorFocus.Value;
-        //sidebar.IconColor = Config.BasicShapeColor.Value;
-        //sidebar.IconColorFocus = Config.BasicShapeColorFocus.Value;
-        //sidebar.ElementsBackgroundColor = Config.SecondColor.Value;
         sidebar.ElementsBackgroundColorFocus = Config.ShapeColor.Value;
         sidebar.IconColor = Config.ShapeColor.Value;
-        //sidebar.ElementsFontColor = Config.BasicColorFocus.Value;
     }
 }

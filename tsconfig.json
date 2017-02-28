@@ -1,7 +1,10 @@
 ﻿{
     "compilerOptions": {
+        "alwaysStrict": true,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitReturns": true,
         "noImplicitAny": true,
-        "removeComments": false,
+        "strictNullChecks": true,
         "preserveConstEnums": true,
         "sourceMap": true,
         "compileOnSave": true,

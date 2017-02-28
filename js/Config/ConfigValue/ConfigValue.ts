@@ -19,7 +19,7 @@
 
     public loadValue(): T
     {
-        let stringifiedValue: string = localStorage.getItem(this.name);
+        let stringifiedValue: string = localStorage.getItem(this.name) || "";
 
         this.value = JSON.parse(stringifiedValue);
 

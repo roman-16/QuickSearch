@@ -8,42 +8,23 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+"use strict";
 Object.prototype.CustomEventListeners = new Array();
 Object.prototype.listenToEvent = function listenToEvent(eventName, callback) {
-    this.CustomEventListeners.push(new CustomEventListener(eventName, callback));
+    this.CustomEventListeners.push([eventName, callback]);
 };
 Object.prototype.unlistenFromEvent = function unlistenFromEvent(eventName, callback) {
-    var index = this.CustomEventListeners.indexOf(new CustomEventListener(eventName, callback));
+    var index = this.CustomEventListeners.indexOf([eventName, callback]);
     this.CustomEventListeners.splice(index, 1);
 };
 Object.prototype.fireEvent = function fireEvent(eventName) {
     for (var i = 0; i < this.CustomEventListeners.length; i++) {
-        if (this.CustomEventListeners[i].EventName === eventName) {
-            this.CustomEventListeners[i].Callback(this);
+        if (this.CustomEventListeners[i][0] === eventName) {
+            this.CustomEventListeners[i][1](this);
         }
     }
 };
-var CustomEventListener = (function () {
-    function CustomEventListener(eventName, callback) {
-        this.eventName = eventName;
-        this.callback = callback;
-    }
-    Object.defineProperty(CustomEventListener.prototype, "EventName", {
-        get: function () {
-            return this.eventName;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(CustomEventListener.prototype, "Callback", {
-        get: function () {
-            return this.callback;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return CustomEventListener;
-}());
+"use strict";
 String.prototype.startsWith = function startsWith(value) {
     return this.lastIndexOf(value, 0) === 0;
 };
@@ -61,6 +42,7 @@ String.prototype.isEmpty = function isEmpty() {
 String.prototype.upperFirstChar = function upperFirstChar() {
     return this.charAt(0).toUpperCase() + this.slice(1);
 };
+"use strict";
 Array.prototype.getColumn = function getColumn(column) {
     var columns = [];
     for (var i = 0; i < this.length; i++) {
@@ -68,9 +50,11 @@ Array.prototype.getColumn = function getColumn(column) {
     }
     return columns;
 };
+"use strict";
 Element.prototype.remove = function remove() {
     this.parentElement.removeChild(this);
 };
+"use strict";
 Document.prototype.onClickOutside = function onClickOutside(div, callback) {
     document.addEventListener("mouseup", function (ev) {
         if (!div.contains(ev.target)) {
@@ -78,6 +62,7 @@ Document.prototype.onClickOutside = function onClickOutside(div, callback) {
         }
     }.bind(this));
 };
+"use strict";
 var CookieHandler = (function () {
     function CookieHandler() {
     }
@@ -86,11 +71,12 @@ var CookieHandler = (function () {
         localStorage.setItem(name, stringValue);
     };
     CookieHandler.getItem = function (name) {
-        var stringValue = localStorage.getItem(name);
+        var stringValue = localStorage.getItem(name) || "";
         return JSON.parse(stringValue);
     };
     return CookieHandler;
 }());
+"use strict";
 var ConfigValue = (function () {
     function ConfigValue(name, value) {
         this.name = name;
@@ -100,7 +86,7 @@ var ConfigValue = (function () {
             this.Value = value;
     }
     ConfigValue.prototype.loadValue = function () {
-        var stringifiedValue = localStorage.getItem(this.name);
+        var stringifiedValue = localStorage.getItem(this.name) || "";
         this.value = JSON.parse(stringifiedValue);
         return this.value;
     };
@@ -140,6 +126,7 @@ var ConfigValue = (function () {
     });
     return ConfigValue;
 }());
+"use strict";
 var Config = (function () {
     function Config() {
     }
@@ -225,6 +212,7 @@ Config.useSearchSuggestions = new ConfigValue("useSearchSuggestions", true);
 Config.numberOfSearchSuggestions = new ConfigValue("numberOfSearchSuggestions", 4);
 Config.clockSeparator = new ConfigValue("clockSeparator", ":");
 Config.shapeColor = new ConfigValue("shapeColor", "#3a5b83");
+"use strict";
 var GoogleData = (function () {
     function GoogleData() {
     }
@@ -235,7 +223,9 @@ var GoogleData = (function () {
             data.executionTime = executionTime;
             callback(data);
             delete GoogleData.getSearchSuggestions[id];
-            document.getElementById("searchSuggestionsQuery" + id).remove();
+            var script = document.getElementById("searchSuggestionsQuery" + id);
+            if (script !== null)
+                script.remove();
         };
         var s = document.createElement("script");
         s.src = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20json%20where%20url%3D%22http%3A%2F%2Fsuggestqueries.google.com%2Fcomplete%2Fsearch%3Fclient%3Dfirefox%26q%3D" +
@@ -246,6 +236,7 @@ var GoogleData = (function () {
     };
     return GoogleData;
 }());
+"use strict";
 var Clock = (function () {
     function Clock(parent) {
         this.clockDiv = document.createElement("div");
@@ -288,6 +279,7 @@ var Clock = (function () {
     });
     return Clock;
 }());
+"use strict";
 var SearchSuggestions = (function () {
     function SearchSuggestions(parent) {
         this.searchSuggestionsDiv = document.createElement("div");
@@ -419,20 +411,23 @@ var SearchSuggestions = (function () {
     SearchSuggestions.prototype.selectMouseOver = function (ev) {
         var searchSuggestionButtons = this.searchSuggestionsDiv.children;
         if (this.selectedButton !== null) {
-            var searchSuggestionButton_3 = searchSuggestionButtons.item(this.selectedButton);
-            searchSuggestionButton_3.style.background = this.backgroundColor;
-            searchSuggestionButton_3.style.color = this.fontColor;
+            var searchSuggestionButton = searchSuggestionButtons.item(this.selectedButton);
+            searchSuggestionButton.style.background = this.backgroundColor;
+            searchSuggestionButton.style.color = this.fontColor;
         }
         for (var i = 0; i < searchSuggestionButtons.length; i++) {
-            var searchSuggestionButton_4 = searchSuggestionButtons.item(i);
-            if (searchSuggestionButton_4.value === ev.target.value) {
+            var searchSuggestionButton = searchSuggestionButtons.item(i);
+            if (searchSuggestionButton.value === ev.target.value) {
                 this.selectedButton = i;
             }
         }
-        var searchSuggestionButton = searchSuggestionButtons.item(this.selectedButton);
-        searchSuggestionButton.style.background = this.backgroundColorFocus;
-        searchSuggestionButton.style.color = this.fontColorFocus;
-        return searchSuggestionButton.value;
+        if (this.selectedButton !== null) {
+            var searchSuggestionButton = searchSuggestionButtons.item(this.selectedButton);
+            searchSuggestionButton.style.background = this.backgroundColorFocus;
+            searchSuggestionButton.style.color = this.fontColorFocus;
+            return searchSuggestionButton.value;
+        }
+        return "";
     };
     SearchSuggestions.prototype.resetSelectedButton = function () {
         if (this.selectedButton !== null) {
@@ -487,6 +482,7 @@ var SearchSuggestions = (function () {
     };
     return SearchSuggestions;
 }());
+"use strict";
 var Homepage = (function () {
     function Homepage(homepage, quickSearchHotkeyStart, quickSearch, quickSearchHotkeyEnd) {
         if (quickSearchHotkeyStart === void 0) { quickSearchHotkeyStart = ""; }
@@ -549,6 +545,7 @@ var Homepage = (function () {
     });
     return Homepage;
 }());
+"use strict";
 var Search = (function (_super) {
     __extends(Search, _super);
     function Search(parent, homepage, quickSearchHotkeyStart, quickSearch, quickSearchHotkeyEnd) {
@@ -716,6 +713,8 @@ var Search = (function (_super) {
     };
     return Search;
 }(Homepage));
+"use strict";
+"use strict";
 var ParallelLayout = (function () {
     function ParallelLayout(childDiv) {
         this.layout = document.createElement("div");
@@ -729,6 +728,10 @@ var ParallelLayout = (function () {
     };
     return ParallelLayout;
 }());
+"use strict";
+"use strict";
+"use strict";
+"use strict";
 var TextInput = (function () {
     function TextInput(name, defaultValue) {
         if (defaultValue === void 0) { defaultValue = ""; }
@@ -785,6 +788,7 @@ var TextInput = (function () {
     });
     return TextInput;
 }());
+"use strict";
 var BigTextInput = (function () {
     function BigTextInput(name, defaultValue) {
         if (defaultValue === void 0) { defaultValue = ""; }
@@ -839,6 +843,7 @@ var BigTextInput = (function () {
     });
     return BigTextInput;
 }());
+"use strict";
 var Button = (function () {
     function Button(value) {
         this.buttonDiv = document.createElement("div");
@@ -936,6 +941,7 @@ var Button = (function () {
     });
     return Button;
 }());
+"use strict";
 var Sidebar = (function () {
     function Sidebar(parent) {
         this.sidebarDiv = document.createElement("div");
@@ -1061,6 +1067,7 @@ var Sidebar = (function () {
             //Display menubar
             this.menubarDiv.style.width = this.expandSize;
             this.menubarDiv.style.padding = "0em 1.5em 0em 0em";
+            this.menubarDiv.style.overflowY = "auto";
             setTimeout(function () {
                 this.isExpanded = true;
             }.bind(this), this.expandTime);
@@ -1072,6 +1079,7 @@ var Sidebar = (function () {
         this.menuIcon.style.opacity = "0.0";
         setTimeout(function () {
             //Hide menubar
+            this.menubarDiv.style.overflowY = "hidden";
             this.menubarDiv.style.padding = "0em 0em 0em 0em";
             this.menubarDiv.style.width = "0%";
             //Change icon
@@ -1096,18 +1104,17 @@ var Sidebar = (function () {
     };
     Sidebar.prototype.updateIconExpanded = function () {
         this.menuIcon.className = this.menuIcon.className.replace("fa-bars", "fa-times");
-        this.menuIcon.style.opacity = "initial";
+        this.menuIcon.style.opacity = "1.0";
         this.menuIcon.style.color = this.iconColorFocus;
     };
     Sidebar.prototype.updateIconReduced = function () {
         this.menuIcon.className = this.menuIcon.className.replace("fa-times", "fa-bars");
-        this.menuIcon.style.opacity = "initial";
+        this.menuIcon.style.opacity = "1.0";
         this.menuIcon.style.color = this.iconColor;
-    };
-    Sidebar.prototype.updateElements = function () {
     };
     return Sidebar;
 }());
+"use strict";
 var Menubar = (function () {
     function Menubar(parent) {
         this.configChildren = new Array();
@@ -1201,6 +1208,7 @@ var Menubar = (function () {
     };
     return Menubar;
 }());
+"use strict";
 window.onload = function () {
     Index.Main();
 };
@@ -1223,7 +1231,6 @@ var Index = (function () {
         this.menubar = new Menubar(menubarParentDiv);
         this.setColors();
         this.search.focus();
-        //TODO: Create user interface for Config.js
         //TODO: show current quicksearch
         //TODO: show help page
         //TODO: Show little popup ("search something...") on first start
@@ -1240,27 +1247,15 @@ var Index = (function () {
         this.clock.Color = Config.ShapeColor.Value;
         //Set search input color
         //FIXME: strange color on reload
-        //this.search.BackgroundColor = Config.BasicColor.Value;
-        //this.search.BackgroundColorFocus = Config.BasicColorFocus.Value;
         this.search.BorderColor = Config.ShapeColor.Value;
-        //this.search.BorderColorFocus = Config.BasicColorFocus.Value;
         this.search.FontColor = Config.ShapeColor.Value;
-        //this.search.FontColorFocus = Config.BasicShapeColorFocus.Value;
         //Set search suggestions color
         var searchSuggestions = this.search.SearchSuggestions;
-        //searchSuggestions.BackgroundColor = Config.SecondColor.Value;
         searchSuggestions.BackgroundColorFocus = Config.ShapeColor.Value;
-        //searchSuggestions.FontColor = Config.BasicShapeColorFocus.Value;
-        //searchSuggestions.FontColorFocus = Config.BasicShapeColorFocus.Value;
         //Set menubar color
         var sidebar = this.menubar.Sidebar;
-        //sidebar.BackgroundColor = Config.BasicColorFocus.Value;
-        //sidebar.IconColor = Config.BasicShapeColor.Value;
-        //sidebar.IconColorFocus = Config.BasicShapeColorFocus.Value;
-        //sidebar.ElementsBackgroundColor = Config.SecondColor.Value;
         sidebar.ElementsBackgroundColorFocus = Config.ShapeColor.Value;
         sidebar.IconColor = Config.ShapeColor.Value;
-        //sidebar.ElementsFontColor = Config.BasicColorFocus.Value;
     };
     return Index;
 }());
