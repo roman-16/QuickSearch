@@ -1,6 +1,18 @@
 @font-face {
-  font-family: 'Lato';
-  src: url('fonts/lato.woff2') format('woff2');
+	font-family: 'Lato';
+	src: url('fonts/lato/lato.eot');
+	src: url('fonts/lato/lato.eot?#iefix') format('embedded-opentype'),
+       url('fonts/lato/lato.woff2') format('woff2'),
+	     url('fonts/lato/lato.woff') format('woff'),
+	     url('fonts/lato/lato.ttf') format('truetype'),
+	     url('fonts/lato/lato.svg#laot') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/* Turn chromes blue border off */
+*:focus {
+    outline: none;
 }
 
 .parentDiv {
@@ -29,7 +41,7 @@
 }
 
 .menubarDiv * {
-  display: initial;
+  display: inline;
 }
 
 .menubarDiv > div {

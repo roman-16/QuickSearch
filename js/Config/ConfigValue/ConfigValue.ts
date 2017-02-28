@@ -19,7 +19,7 @@
 
     public loadValue(): T
     {
-        let stringifiedValue: string = localStorage.getItem(this.name);
+        let stringifiedValue: string = localStorage.getItem(this.name) || "";
 
         this.value = JSON.parse(stringifiedValue);
 
@@ -40,7 +40,6 @@
 
     public isSavedValue(): boolean
     {
-        let test: any = localStorage.getItem(this.name);
         return localStorage.getItem(this.name) !== null;
     }
 

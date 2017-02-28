@@ -12,7 +12,10 @@
             callback(data);
 
             delete (<any>GoogleData.getSearchSuggestions)[id];
-            document.getElementById("searchSuggestionsQuery" + id).remove();
+            let script: HTMLElement | null = document.getElementById("searchSuggestionsQuery" + id);
+
+            if (script !== null)
+                script.remove();
         };
 
         let s: HTMLScriptElement = document.createElement("script");

@@ -24,7 +24,7 @@
 
         this.searchSuggestions = new SearchSuggestions(this.searchSuggestionsDiv);
 
-        this.searchSuggestions.addEventListener("SearchSuggestionsClicked", this.searchSuggestionClicked.bind(this));
+        this.SearchSuggestions.listenToEvent("SearchSuggestionsClicked", this.searchSuggestionClicked.bind(this));
 
         this.searchDiv.className = "searchDiv";
         this.searchInputDiv.className = "searchInputDiv";
@@ -139,9 +139,9 @@
         this.searchInput.style.color = this.fontColor;
     }
 
-    private searchSuggestionClicked(ev: MouseEvent): void
+    private searchSuggestionClicked(target: Object): void
     {
-        this.searchInput.value = this.keepQuickSearchHotkey(this.searchInput.value) + (<HTMLInputElement>ev.target).value;
+        this.searchInput.value = this.keepQuickSearchHotkey(this.searchInput.value) + (<HTMLInputElement>target).value;
         this.searchInput.focus();
 
         this.searchSuggestions.showSearchSuggestions(this.removeQuickSearchHotkey(this.searchInput.value));

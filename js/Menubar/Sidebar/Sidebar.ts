@@ -138,9 +138,7 @@
         if (!this.isFirstExpanded)
         {
             //Fire event
-            let event: CustomEvent = new CustomEvent("SidebarFirstExpand");
-
-            window.dispatchEvent(event);
+            this.fireEvent("SidebarFirstExpand");
 
             this.isFirstExpanded = true;
         }
@@ -155,8 +153,9 @@
             //Display menubar
             this.menubarDiv.style.width = this.expandSize;
             this.menubarDiv.style.padding = "0em 1.5em 0em 0em";
+            this.menubarDiv.style.overflowY = "auto";
 
-            setTimeout(function ()
+            setTimeout(function()
             {
                 this.isExpanded = true;
             }.bind(this), this.expandTime);
@@ -170,9 +169,10 @@
         
         this.menuIcon.style.opacity = "0.0";
 
-        setTimeout(function ()
+        setTimeout(function()
         {
             //Hide menubar
+            this.menubarDiv.style.overflowY = "hidden";
             this.menubarDiv.style.padding = "0em 0em 0em 0em";
             this.menubarDiv.style.width = "0%";
 
@@ -209,19 +209,14 @@
     private updateIconExpanded(): void
     {
         this.menuIcon.className = this.menuIcon.className.replace("fa-bars", "fa-times");
-        this.menuIcon.style.opacity = "initial";
+        this.menuIcon.style.opacity = "1.0";
         this.menuIcon.style.color = this.iconColorFocus;
     }
 
     private updateIconReduced(): void
     {
         this.menuIcon.className = this.menuIcon.className.replace("fa-times", "fa-bars");
-        this.menuIcon.style.opacity = "initial";
+        this.menuIcon.style.opacity = "1.0";
         this.menuIcon.style.color = this.iconColor;
-    }
-
-    private updateElements(): void
-    {
-
     }
 }

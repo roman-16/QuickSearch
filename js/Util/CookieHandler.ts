@@ -9,7 +9,7 @@
 
     public static getItem(name: string): any
     {
-        let stringValue: string = localStorage.getItem(name);
+        let stringValue: string = localStorage.getItem(name) || "";
 
         return JSON.parse(stringValue);
     }
