@@ -134,6 +134,11 @@
     {
         Config.reset();
 
-        location.reload();
+        InformationBox.showText("Reseted!", 2000);
+
+        setTimeout(function()
+        {
+            location.reload();
+        }.bind(this), 2500);
     }
 }

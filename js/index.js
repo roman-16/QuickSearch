@@ -1227,7 +1227,10 @@ var Menubar = (function () {
     };
     Menubar.prototype.resetClicked = function (target) {
         Config.reset();
-        location.reload();
+        InformationBox.showText("Reseted!", 2000);
+        setTimeout(function () {
+            location.reload();
+        }.bind(this), 2500);
     };
     return Menubar;
 }());
