@@ -15,8 +15,6 @@ class Index
 
     public static Main(): void
     {
-        this.removeEnableJavaScript();
-
         //Clock
         let clockParentDiv: HTMLDivElement = <HTMLDivElement>document.getElementsByClassName("clockParentDiv")[0];
         this.clock = new Clock(clockParentDiv);
@@ -46,11 +44,6 @@ class Index
     }
 
 
-	    
-	private static removeEnableJavaScript(): void
-    {
-        document.getElementsByClassName("javascriptDiv")[0].remove();
-    }
 
     private static setColors(): void
     {

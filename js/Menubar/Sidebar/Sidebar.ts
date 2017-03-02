@@ -94,22 +94,16 @@
     public set ElementsBackgroundColor(value: string)
     {
         this.elementsBackgroundColor = value;
-
-        this.updateElements();
     }
 
     public set ElementsBackgroundColorFocus(value: string)
     {
         this.elementsBackgroundColorFocus = value;
-
-        this.updateElements();
     }
 
     public set ElementsFontColor(value: string)
     {
         this.elementsFontColor = value;
-
-        this.updateElements();
     }
 
     public get InputChildren(): Array<IInputForm>
