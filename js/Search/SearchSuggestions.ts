@@ -153,11 +153,6 @@
         }
     }
 
-    public addEventListener(name: string, callback: EventListener): void
-    {
-        window.addEventListener(name, callback);
-    }
-
     public set BackgroundColor(value: string)
     {
         this.backgroundColor = value;

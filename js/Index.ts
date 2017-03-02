@@ -1,6 +1,6 @@
 ﻿window.onload = function()
 {
-    Index.Main();
+    Index.main();
 }
 
 
@@ -13,7 +13,7 @@ class Index
 
 
 
-    public static Main(): void
+    public static main(): void
     {
         //Clock
         let clockParentDiv: HTMLDivElement = <HTMLDivElement>document.getElementsByClassName("clockParentDiv")[0];

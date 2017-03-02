@@ -31,11 +31,6 @@
 
 
 
-    public addEventListener(name: string, callback: EventListener): void
-    {
-        this.buttonDiv.addEventListener(name, callback);
-    }
-
     public getElement(): HTMLDivElement
     {
         return this.buttonDiv;

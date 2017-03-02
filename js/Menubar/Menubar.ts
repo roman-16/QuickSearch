@@ -46,7 +46,7 @@
         this.saveButton.listenToEvent("ButtonClicked", this.saveClicked.bind(this));
         this.resetButton = new Button("Reset");
         this.resetButton.BackgroundColorHover = Config.ShapeColor.Value;
-        this.resetButton.listenToEvent("ButtonClicked", this.saveClicked.bind(this));
+        this.resetButton.listenToEvent("ButtonClicked", this.resetClicked.bind(this));
         this.buttonLayout = new ParallelLayout(this.saveButton.getElement());
         this.buttonLayout.appendChild(this.resetButton.getElement());
 
@@ -122,7 +122,12 @@
             this.configChildren[i].saveStringifiedValue(inputChildren[i].Value);
         }
 
-        location.reload();
+        InformationBox.showText("Saved!", 2000);
+
+        setTimeout(function()
+        {
+            location.reload();
+        }.bind(this), 2500);
     }
 
     private resetClicked(target: Object): void
