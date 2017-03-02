@@ -206,7 +206,8 @@ Config.quickSearch = new ConfigValue("quickSearch", [["d", "https://start.duckdu
     ["g", "https://encrypted.google.com/#q="], ["y", "https://youtube.com/results?search_query="],
     ["r", "https://reddit.com/search?q="], ["sr", "https://reddit.com/r/"],
     ["sx", "https://stackexchange.com/search?q="], ["so", "https://stackoverflow.com/search?q="],
-    ["gh", "https://github.com/search?q="], ["f", "https://www.facebook.com/public?query="]]);
+    ["git", "https://github.com/search?q="], ["f", "https://www.facebook.com/public?query="],
+    ["dict", "http://www.dict.cc/?s="]]);
 Config.quickSearchHotkeyEnd = new ConfigValue("quickSearchHotkeyEnd", " ");
 Config.useSearchSuggestions = new ConfigValue("useSearchSuggestions", true);
 Config.numberOfSearchSuggestions = new ConfigValue("numberOfSearchSuggestions", 4);
@@ -1017,7 +1018,6 @@ var Sidebar = (function () {
     Object.defineProperty(Sidebar.prototype, "ElementsBackgroundColor", {
         set: function (value) {
             this.elementsBackgroundColor = value;
-            this.updateElements();
         },
         enumerable: true,
         configurable: true
@@ -1025,7 +1025,6 @@ var Sidebar = (function () {
     Object.defineProperty(Sidebar.prototype, "ElementsBackgroundColorFocus", {
         set: function (value) {
             this.elementsBackgroundColorFocus = value;
-            this.updateElements();
         },
         enumerable: true,
         configurable: true
@@ -1033,7 +1032,6 @@ var Sidebar = (function () {
     Object.defineProperty(Sidebar.prototype, "ElementsFontColor", {
         set: function (value) {
             this.elementsFontColor = value;
-            this.updateElements();
         },
         enumerable: true,
         configurable: true
@@ -1216,7 +1214,6 @@ var Index = (function () {
     function Index() {
     }
     Index.Main = function () {
-        this.removeEnableJavaScript();
         //Clock
         var clockParentDiv = document.getElementsByClassName("clockParentDiv")[0];
         this.clock = new Clock(clockParentDiv);
@@ -1236,9 +1233,6 @@ var Index = (function () {
         //TODO: Show little popup ("search something...") on first start
         //TODO: Rework link detection
         //TODO: save visited websites and put them in the searchbox on search (but not in the searchsuggestion)
-    };
-    Index.removeEnableJavaScript = function () {
-        document.getElementsByClassName("javascriptDiv")[0].remove();
     };
     Index.setColors = function () {
         //Set body color
