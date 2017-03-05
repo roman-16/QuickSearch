@@ -11,16 +11,17 @@ var __extends = (this && this.__extends) || (function () {
 "use strict";
 Object.prototype.CustomEventListeners = new Array();
 Object.prototype.listenToEvent = function listenToEvent(eventName, callback) {
-    this.CustomEventListeners.push([eventName, callback]);
+    this.CustomEventListeners.push([eventName, this, callback]);
 };
 Object.prototype.unlistenFromEvent = function unlistenFromEvent(eventName, callback) {
-    var index = this.CustomEventListeners.indexOf([eventName, callback]);
+    var index = this.CustomEventListeners.indexOf([eventName, this, callback]);
     this.CustomEventListeners.splice(index, 1);
 };
 Object.prototype.fireEvent = function fireEvent(eventName) {
     for (var i = 0; i < this.CustomEventListeners.length; i++) {
-        if (this.CustomEventListeners[i][0] === eventName) {
-            this.CustomEventListeners[i][1](this);
+        if (this.CustomEventListeners[i][0] === eventName &&
+            this.CustomEventListeners[i][1] == this) {
+            this.CustomEventListeners[i][2](this);
         }
     }
 };
@@ -238,6 +239,263 @@ var GoogleData = (function () {
     return GoogleData;
 }());
 "use strict";
+"use strict";
+var ParallelLayout = (function () {
+    function ParallelLayout(childDiv) {
+        this.layout = document.createElement("div");
+        this.layout.appendChild(childDiv);
+    }
+    ParallelLayout.prototype.appendChild = function (childDiv) {
+        this.layout.appendChild(childDiv);
+    };
+    ParallelLayout.prototype.getElement = function () {
+        return this.layout;
+    };
+    return ParallelLayout;
+}());
+"use strict";
+"use strict";
+"use strict";
+"use strict";
+var TextInput = (function () {
+    function TextInput(name, defaultValue) {
+        if (defaultValue === void 0) { defaultValue = ""; }
+        this.textInputDiv = document.createElement("div");
+        this.textInputP = document.createElement("p");
+        this.textInput = document.createElement("input");
+        this.backgroundColor = "#FFFFFF";
+        this.fontColor = "#000000";
+        this.textInputDiv.className = "textInputDiv";
+        this.textInputDiv.style.width = "100%";
+        this.textInputP.className = "textInputP";
+        this.textInputP.innerText = name;
+        this.textInputP.style.margin = "0px 10px 0px 0px";
+        this.textInput.className = "textInput";
+        this.textInput.value = defaultValue;
+        this.textInput.type = "text";
+        this.textInput.style.width = "40%";
+        this.textInputDiv.appendChild(this.textInputP);
+        this.textInputDiv.appendChild(this.textInput);
+    }
+    TextInput.prototype.getElement = function () {
+        return this.textInputDiv;
+    };
+    TextInput.prototype.focus = function () {
+        this.textInput.focus();
+    };
+    Object.defineProperty(TextInput.prototype, "Value", {
+        get: function () {
+            return this.textInput.value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TextInput.prototype, "BackgroundColor", {
+        set: function (value) {
+            this.backgroundColor = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TextInput.prototype, "FontColor", {
+        set: function (value) {
+            this.fontColor = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TextInput.prototype, "Style", {
+        get: function () {
+            return this.textInput.style;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return TextInput;
+}());
+"use strict";
+var BigTextInput = (function () {
+    function BigTextInput(name, defaultValue) {
+        if (defaultValue === void 0) { defaultValue = ""; }
+        this.bigTextInputDiv = document.createElement("div");
+        this.bigTextInputP = document.createElement("p");
+        this.bigTextInput = document.createElement("textarea");
+        this.backgroundColor = "#FFFFFF";
+        this.fontColor = "#000000";
+        this.bigTextInputDiv.className = "bigTextInputDiv";
+        this.bigTextInputDiv.style.width = "100%";
+        this.bigTextInputP.className = "textInputP";
+        this.bigTextInputP.innerText = name;
+        this.bigTextInputP.style.margin = "0px 10px 0px 0px";
+        this.bigTextInput.className = "bigTextInput";
+        this.bigTextInput.value = defaultValue;
+        this.bigTextInputDiv.appendChild(this.bigTextInputP);
+        this.bigTextInputDiv.appendChild(this.bigTextInput);
+    }
+    BigTextInput.prototype.getElement = function () {
+        return this.bigTextInputDiv;
+    };
+    BigTextInput.prototype.focus = function () {
+        this.bigTextInput.focus();
+    };
+    Object.defineProperty(BigTextInput.prototype, "Value", {
+        get: function () {
+            return this.bigTextInput.value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(BigTextInput.prototype, "BackgroundColor", {
+        set: function (value) {
+            this.backgroundColor = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(BigTextInput.prototype, "FontColor", {
+        set: function (value) {
+            this.fontColor = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(BigTextInput.prototype, "Style", {
+        get: function () {
+            return this.bigTextInput.style;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return BigTextInput;
+}());
+"use strict";
+var Button = (function () {
+    function Button(value) {
+        this.buttonDiv = document.createElement("div");
+        this.button = document.createElement("button");
+        this.isHovered = false;
+        this.backgroundColor = "#FFFFFF";
+        this.backgroundColorHover = "#000000";
+        this.fontColor = "#000000";
+        this.fontColorHover = "#FFFFFF";
+        this.value = value;
+        this.buttonDiv.className = "buttonDiv";
+        this.buttonDiv.style.width = "100%";
+        this.button.className = "button";
+        this.button.innerText = value;
+        this.button.onclick = this.mouseClicked.bind(this);
+        this.button.onmouseover = this.hovered.bind(this);
+        this.button.onmouseout = this.blured.bind(this);
+        this.button.style.border = "0px";
+        this.button.style.padding = "10px 10px 10px 10px";
+        this.button.style.backgroundColor = this.backgroundColor;
+        this.buttonDiv.appendChild(this.button);
+    }
+    Button.prototype.getElement = function () {
+        return this.buttonDiv;
+    };
+    Button.prototype.mouseClicked = function (ev) {
+        this.fireEvent("ButtonClicked");
+    };
+    Button.prototype.hovered = function () {
+        this.isHovered = true;
+        this.updateButton();
+    };
+    Button.prototype.blured = function () {
+        this.isHovered = false;
+        this.updateButton();
+    };
+    Button.prototype.updateButton = function () {
+        if (this.isHovered) {
+            this.button.style.backgroundColor = this.backgroundColorHover;
+            this.button.style.color = this.fontColorHover;
+        }
+        else {
+            this.button.style.backgroundColor = this.backgroundColor;
+            this.button.style.color = this.fontColor;
+        }
+    };
+    Object.defineProperty(Button.prototype, "BackgroundColor", {
+        set: function (value) {
+            this.backgroundColor = value;
+            this.updateButton();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Button.prototype, "BackgroundColorHover", {
+        set: function (value) {
+            this.backgroundColorHover = value;
+            this.updateButton();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Button.prototype, "FontColor", {
+        set: function (value) {
+            this.fontColor = value;
+            this.updateButton();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Button.prototype, "FontColorHover", {
+        set: function (value) {
+            this.fontColorHover = value;
+            this.updateButton();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Button.prototype, "Margin", {
+        set: function (value) {
+            this.buttonDiv.style.margin = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Button.prototype, "Style", {
+        get: function () {
+            return this.button.style;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return Button;
+}());
+"use strict";
+var InformationBox = (function () {
+    function InformationBox() {
+    }
+    InformationBox.init = function () {
+        if (!InformationBox.isInit) {
+            InformationBox.informationDiv.className = "infoDiv";
+            InformationBox.informationDiv.style.display = "none";
+            InformationBox.innerInformationDiv.className = "innerInfoDiv";
+            InformationBox.informationText.className = "infoText";
+            InformationBox.innerInformationDiv.appendChild(InformationBox.informationText);
+            InformationBox.informationDiv.appendChild(InformationBox.innerInformationDiv);
+            document.body.appendChild(InformationBox.informationDiv);
+            InformationBox.isInit = true;
+        }
+    };
+    InformationBox.showText = function (text, timeout) {
+        if (timeout === void 0) { timeout = 2000; }
+        this.init();
+        this.informationText.innerText = text;
+        this.informationDiv.style.display = "inline";
+        setTimeout(function () {
+            this.informationDiv.style.display = "none";
+            this.fireEvent("OnTextClose");
+        }.bind(this), timeout);
+    };
+    return InformationBox;
+}());
+InformationBox.isInit = false;
+InformationBox.informationDiv = document.createElement("div");
+InformationBox.innerInformationDiv = document.createElement("div");
+InformationBox.informationText = document.createElement("p");
+"use strict";
 var Clock = (function () {
     function Clock(parent) {
         this.clockDiv = document.createElement("div");
@@ -377,9 +635,6 @@ var SearchSuggestions = (function () {
         else {
             return this.inputValue;
         }
-    };
-    SearchSuggestions.prototype.addEventListener = function (name, callback) {
-        window.addEventListener(name, callback);
     };
     Object.defineProperty(SearchSuggestions.prototype, "BackgroundColor", {
         set: function (value) {
@@ -715,234 +970,6 @@ var Search = (function (_super) {
     return Search;
 }(Homepage));
 "use strict";
-"use strict";
-var ParallelLayout = (function () {
-    function ParallelLayout(childDiv) {
-        this.layout = document.createElement("div");
-        this.layout.appendChild(childDiv);
-    }
-    ParallelLayout.prototype.appendChild = function (childDiv) {
-        this.layout.appendChild(childDiv);
-    };
-    ParallelLayout.prototype.getElement = function () {
-        return this.layout;
-    };
-    return ParallelLayout;
-}());
-"use strict";
-"use strict";
-"use strict";
-"use strict";
-var TextInput = (function () {
-    function TextInput(name, defaultValue) {
-        if (defaultValue === void 0) { defaultValue = ""; }
-        this.textInputDiv = document.createElement("div");
-        this.textInputP = document.createElement("p");
-        this.textInput = document.createElement("input");
-        this.backgroundColor = "#FFFFFF";
-        this.fontColor = "#000000";
-        this.textInputDiv.className = "textInputDiv";
-        this.textInputDiv.style.width = "100%";
-        this.textInputP.className = "textInputP";
-        this.textInputP.innerText = name;
-        this.textInputP.style.margin = "0px 10px 0px 0px";
-        this.textInput.className = "textInput";
-        this.textInput.value = defaultValue;
-        this.textInput.type = "text";
-        this.textInput.style.width = "40%";
-        this.textInputDiv.appendChild(this.textInputP);
-        this.textInputDiv.appendChild(this.textInput);
-    }
-    TextInput.prototype.getElement = function () {
-        return this.textInputDiv;
-    };
-    TextInput.prototype.focus = function () {
-        this.textInput.focus();
-    };
-    Object.defineProperty(TextInput.prototype, "Value", {
-        get: function () {
-            return this.textInput.value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TextInput.prototype, "BackgroundColor", {
-        set: function (value) {
-            this.backgroundColor = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TextInput.prototype, "FontColor", {
-        set: function (value) {
-            this.fontColor = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TextInput.prototype, "Style", {
-        get: function () {
-            return this.textInput.style;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return TextInput;
-}());
-"use strict";
-var BigTextInput = (function () {
-    function BigTextInput(name, defaultValue) {
-        if (defaultValue === void 0) { defaultValue = ""; }
-        this.bigTextInputDiv = document.createElement("div");
-        this.bigTextInputP = document.createElement("p");
-        this.bigTextInput = document.createElement("textarea");
-        this.backgroundColor = "#FFFFFF";
-        this.fontColor = "#000000";
-        this.bigTextInputDiv.className = "bigTextInputDiv";
-        this.bigTextInputDiv.style.width = "100%";
-        this.bigTextInputP.className = "textInputP";
-        this.bigTextInputP.innerText = name;
-        this.bigTextInputP.style.margin = "0px 10px 0px 0px";
-        this.bigTextInput.className = "bigTextInput";
-        this.bigTextInput.value = defaultValue;
-        this.bigTextInputDiv.appendChild(this.bigTextInputP);
-        this.bigTextInputDiv.appendChild(this.bigTextInput);
-    }
-    BigTextInput.prototype.getElement = function () {
-        return this.bigTextInputDiv;
-    };
-    BigTextInput.prototype.focus = function () {
-        this.bigTextInput.focus();
-    };
-    Object.defineProperty(BigTextInput.prototype, "Value", {
-        get: function () {
-            return this.bigTextInput.value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BigTextInput.prototype, "BackgroundColor", {
-        set: function (value) {
-            this.backgroundColor = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BigTextInput.prototype, "FontColor", {
-        set: function (value) {
-            this.fontColor = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BigTextInput.prototype, "Style", {
-        get: function () {
-            return this.bigTextInput.style;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return BigTextInput;
-}());
-"use strict";
-var Button = (function () {
-    function Button(value) {
-        this.buttonDiv = document.createElement("div");
-        this.button = document.createElement("button");
-        this.isHovered = false;
-        this.backgroundColor = "#FFFFFF";
-        this.backgroundColorHover = "#000000";
-        this.fontColor = "#000000";
-        this.fontColorHover = "#FFFFFF";
-        this.value = value;
-        this.buttonDiv.className = "buttonDiv";
-        this.buttonDiv.style.width = "100%";
-        this.button.className = "button";
-        this.button.innerText = value;
-        this.button.onclick = this.mouseClicked.bind(this);
-        this.button.onmouseover = this.hovered.bind(this);
-        this.button.onmouseout = this.blured.bind(this);
-        this.button.style.border = "0px";
-        this.button.style.padding = "10px 10px 10px 10px";
-        this.button.style.backgroundColor = this.backgroundColor;
-        this.buttonDiv.appendChild(this.button);
-    }
-    Button.prototype.addEventListener = function (name, callback) {
-        this.buttonDiv.addEventListener(name, callback);
-    };
-    Button.prototype.getElement = function () {
-        return this.buttonDiv;
-    };
-    Button.prototype.mouseClicked = function (ev) {
-        this.fireEvent("ButtonClicked");
-    };
-    Button.prototype.hovered = function () {
-        this.isHovered = true;
-        this.updateButton();
-    };
-    Button.prototype.blured = function () {
-        this.isHovered = false;
-        this.updateButton();
-    };
-    Button.prototype.updateButton = function () {
-        if (this.isHovered) {
-            this.button.style.backgroundColor = this.backgroundColorHover;
-            this.button.style.color = this.fontColorHover;
-        }
-        else {
-            this.button.style.backgroundColor = this.backgroundColor;
-            this.button.style.color = this.fontColor;
-        }
-    };
-    Object.defineProperty(Button.prototype, "BackgroundColor", {
-        set: function (value) {
-            this.backgroundColor = value;
-            this.updateButton();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Button.prototype, "BackgroundColorHover", {
-        set: function (value) {
-            this.backgroundColorHover = value;
-            this.updateButton();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Button.prototype, "FontColor", {
-        set: function (value) {
-            this.fontColor = value;
-            this.updateButton();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Button.prototype, "FontColorHover", {
-        set: function (value) {
-            this.fontColorHover = value;
-            this.updateButton();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Button.prototype, "Margin", {
-        set: function (value) {
-            this.buttonDiv.style.margin = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Button.prototype, "Style", {
-        get: function () {
-            return this.button.style;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return Button;
-}());
-"use strict";
 var Sidebar = (function () {
     function Sidebar(parent) {
         this.sidebarDiv = document.createElement("div");
@@ -975,9 +1002,6 @@ var Sidebar = (function () {
         this.parent.appendChild(this.sidebarDiv);
         document.onClickOutside(this.menubarDiv, this.reduce.bind(this));
     }
-    Sidebar.prototype.addEventListener = function (name, callback) {
-        window.addEventListener(name, callback);
-    };
     Sidebar.prototype.appendChild = function (child) {
         this.menubarDiv.appendChild(child);
     };
@@ -1144,7 +1168,7 @@ var Menubar = (function () {
         this.saveButton.listenToEvent("ButtonClicked", this.saveClicked.bind(this));
         this.resetButton = new Button("Reset");
         this.resetButton.BackgroundColorHover = Config.ShapeColor.Value;
-        this.resetButton.listenToEvent("ButtonClicked", this.saveClicked.bind(this));
+        this.resetButton.listenToEvent("ButtonClicked", this.resetClicked.bind(this));
         this.buttonLayout = new ParallelLayout(this.saveButton.getElement());
         this.buttonLayout.appendChild(this.resetButton.getElement());
         this.sidebar.appendLayout(this.buttonLayout);
@@ -1198,22 +1222,28 @@ var Menubar = (function () {
             }
             this.configChildren[i].saveStringifiedValue(inputChildren[i].Value);
         }
-        location.reload();
+        InformationBox.showText("Saved!", 1000);
+        InformationBox.listenToEvent("OnTextClose", function () {
+            location.reload();
+        }.bind(this));
     };
     Menubar.prototype.resetClicked = function (target) {
         Config.reset();
-        location.reload();
+        InformationBox.showText("Reseted!", 1000);
+        InformationBox.listenToEvent("OnTextClose", function () {
+            location.reload();
+        }.bind(this));
     };
     return Menubar;
 }());
 "use strict";
 window.onload = function () {
-    Index.Main();
+    Index.main();
 };
 var Index = (function () {
     function Index() {
     }
-    Index.Main = function () {
+    Index.main = function () {
         //Clock
         var clockParentDiv = document.getElementsByClassName("clockParentDiv")[0];
         this.clock = new Clock(clockParentDiv);

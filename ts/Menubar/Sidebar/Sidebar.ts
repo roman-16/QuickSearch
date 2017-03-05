@@ -40,13 +40,8 @@
 
         document.onClickOutside(this.menubarDiv, this.reduce.bind(this));
     }
-    
 
-    
-    public addEventListener(name: string, callback: EventListener): void
-    {
-        window.addEventListener(name, callback);
-    }
+
 
     public appendChild(child: HTMLElement): void
     {
@@ -139,7 +134,7 @@
 
         this.menuIcon.style.opacity = "0.0";
 
-        setTimeout(function ()
+        setTimeout(function()
         {
             //Change icon
             this.updateIconExpanded();
