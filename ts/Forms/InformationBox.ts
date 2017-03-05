@@ -12,6 +12,7 @@ class InformationBox
         if (!InformationBox.isInit)
         {
             InformationBox.informationDiv.className = "infoDiv";
+            InformationBox.informationDiv.style.display = "none";
 
             InformationBox.innerInformationDiv.className = "innerInfoDiv";
 
@@ -32,11 +33,13 @@ class InformationBox
         this.init();
         this.informationText.innerText = text;
 
-        this.informationDiv.style.opacity = "1";
+        this.informationDiv.style.display = "inline";
 
         setTimeout(function()
         {
-            this.informationDiv.style.opacity = "0";
+            this.informationDiv.style.display = "none";
+
+            this.fireEvent("OnTextClose");
         }.bind(this), timeout);
     }
 }

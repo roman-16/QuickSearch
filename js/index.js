@@ -470,6 +470,7 @@ var InformationBox = (function () {
     InformationBox.init = function () {
         if (!InformationBox.isInit) {
             InformationBox.informationDiv.className = "infoDiv";
+            InformationBox.informationDiv.style.display = "none";
             InformationBox.innerInformationDiv.className = "innerInfoDiv";
             InformationBox.informationText.className = "infoText";
             InformationBox.innerInformationDiv.appendChild(InformationBox.informationText);
@@ -482,9 +483,10 @@ var InformationBox = (function () {
         if (timeout === void 0) { timeout = 2000; }
         this.init();
         this.informationText.innerText = text;
-        this.informationDiv.style.opacity = "1";
+        this.informationDiv.style.display = "inline";
         setTimeout(function () {
-            this.informationDiv.style.opacity = "0";
+            this.informationDiv.style.display = "none";
+            this.fireEvent("OnTextClose");
         }.bind(this), timeout);
     };
     return InformationBox;
@@ -1220,17 +1222,17 @@ var Menubar = (function () {
             }
             this.configChildren[i].saveStringifiedValue(inputChildren[i].Value);
         }
-        InformationBox.showText("Saved!", 2000);
-        setTimeout(function () {
+        InformationBox.showText("Saved!", 1000);
+        InformationBox.listenToEvent("OnTextClose", function () {
             location.reload();
-        }.bind(this), 2500);
+        }.bind(this));
     };
     Menubar.prototype.resetClicked = function (target) {
         Config.reset();
-        InformationBox.showText("Reseted!", 2000);
-        setTimeout(function () {
+        InformationBox.showText("Reseted!", 1000);
+        InformationBox.listenToEvent("OnTextClose", function () {
             location.reload();
-        }.bind(this), 2500);
+        }.bind(this));
     };
     return Menubar;
 }());

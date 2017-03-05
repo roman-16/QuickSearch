@@ -122,23 +122,23 @@
             this.configChildren[i].saveStringifiedValue(inputChildren[i].Value);
         }
 
-        InformationBox.showText("Saved!", 2000);
+        InformationBox.showText("Saved!", 1000);
 
-        setTimeout(function()
+        InformationBox.listenToEvent("OnTextClose", function()
         {
             location.reload();
-        }.bind(this), 2500);
+        }.bind(this));
     }
 
     private resetClicked(target: Object): void
     {
         Config.reset();
 
-        InformationBox.showText("Reseted!", 2000);
+        InformationBox.showText("Reseted!", 1000);
 
-        setTimeout(function()
+        InformationBox.listenToEvent("OnTextClose", function()
         {
             location.reload();
-        }.bind(this), 2500);
+        }.bind(this));
     }
 }
