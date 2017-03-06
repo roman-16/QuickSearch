@@ -15,7 +15,7 @@ More quicksearches on websites can be added in the [config file](https://github.
 The you can edit your [QuickSearch](http://quicksearch.site) with a [config file](https://github.com/Wavum/wavum.github.io/blob/master/js/Config/Config.ts).
 
 # Installation
-Download or clone the repository and open the [index.html](https://github.com/Wavum/wavum.github.io/blob/master/index.html) with your favorite browser.
+Clone or download the repository and open the [index.html](https://github.com/Wavum/wavum.github.io/blob/master/index.html) with your favorite browser.
 
 # Future
 Future projects will be shown on the [project page](https://github.com/Wavum/QuickSearch/projects).
