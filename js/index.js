@@ -207,7 +207,7 @@ Config.quickSearch = new ConfigValue("quickSearch", [["d", "https://start.duckdu
     ["g", "https://encrypted.google.com/#q="], ["y", "https://youtube.com/results?search_query="],
     ["r", "https://reddit.com/search?q="], ["sr", "https://reddit.com/r/"],
     ["sx", "https://stackexchange.com/search?q="], ["so", "https://stackoverflow.com/search?q="],
-    ["git", "https://github.com/search?q="], ["f", "https://www.facebook.com/public?query="],
+    ["gh", "https://github.com/search?q="], ["f", "https://www.facebook.com/public?query="],
     ["dict", "http://www.dict.cc/?s="]]);
 Config.quickSearchHotkeyEnd = new ConfigValue("quickSearchHotkeyEnd", " ");
 Config.useSearchSuggestions = new ConfigValue("useSearchSuggestions", true);
@@ -758,11 +758,6 @@ var Homepage = (function () {
     }
     Homepage.prototype.openHomepage = function (value) {
         if (value === void 0) { value = ""; }
-        //Open homepage
-        if (value === "") {
-            this.openURL(this.homepage);
-            return;
-        }
         //Test for quicksearch
         if (this.useQuickSearch) {
             var quickSearchHotkeys = this.quickSearch.getColumn(0);
@@ -771,26 +766,27 @@ var Homepage = (function () {
             }
             for (var i = 0; i < quickSearchHotkeys.length; i++) {
                 if (value.startsWith(quickSearchHotkeys[i])) {
-                    this.openURL(this.quickSearch[i][1] + encodeURIComponent(value.replace(quickSearchHotkeys[i], "")));
+                    window.open(this.quickSearch[i][1] + encodeURIComponent(value.replace(quickSearchHotkeys[i], "")), "_self");
                     return;
                 }
             }
         }
         //Test for link
-        if (value.startsWithAny(this.linkStartsWith)) {
-            this.openURL(value);
+        if (this.isURL(value)) {
+            if (!value.startsWith("http")) {
+                window.open("http://" + value, "_self");
+            }
+            else {
+                window.open(value, "_self");
+            }
             return;
         }
         //Normal search
-        this.openURL(this.homepage + encodeURIComponent(value));
+        window.open(this.homepage + encodeURIComponent(value), "_self");
     };
-    Homepage.prototype.openURL = function (value) {
-        if (value.startsWith("www.")) {
-            window.open("http://" + value, "_self");
-        }
-        else {
-            window.open(value, "_self");
-        }
+    Homepage.prototype.isURL = function (url) {
+        var regex = new RegExp(/[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi);
+        return regex.test(url);
     };
     Object.defineProperty(Homepage.prototype, "LinkStartsWith", {
         set: function (value) {

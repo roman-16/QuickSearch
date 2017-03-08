@@ -30,13 +30,6 @@
     
     public openHomepage(value: string = ""): void
     {
-        //Open homepage
-        if (value === "")
-        {
-            this.openURL(this.homepage);
-            return;
-        }
-
         //Test for quicksearch
         if (this.useQuickSearch)
         {
@@ -51,33 +44,37 @@
             {
                 if (value.startsWith(quickSearchHotkeys[i]))
                 {
-                    this.openURL(this.quickSearch[i][1] + encodeURIComponent(value.replace(quickSearchHotkeys[i], "")));
+                    window.open(this.quickSearch[i][1] + encodeURIComponent(value.replace(quickSearchHotkeys[i], "")), "_self");
                     return;
                 }
             }
         }
 
         //Test for link
-        if (value.startsWithAny(this.linkStartsWith))
+        if (this.isURL(value))
         {
-            this.openURL(value);
+            if (!value.startsWith("http"))
+            {
+                window.open("http://" + value, "_self");
+            }
+            else
+            {
+                window.open(value, "_self");
+            }
             return;
         }
 
         //Normal search
-        this.openURL(this.homepage + encodeURIComponent(value));
+        window.open(this.homepage + encodeURIComponent(value), "_self");
     }
 
-    public openURL(value: string): void
+
+
+    private isURL(url: string): boolean
     {
-        if (value.startsWith("www."))
-        {
-            window.open("http://" + value, "_self");
-        }
-        else
-        {
-            window.open(value, "_self");
-        }
+        let regex: RegExp = new RegExp(/[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi);
+
+        return regex.test(url);
     }
 
 
