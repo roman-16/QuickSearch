@@ -7,7 +7,7 @@
                                                                               ["g", "https://encrypted.google.com/#q="], ["y", "https://youtube.com/results?search_query="],
                                                                               ["r", "https://reddit.com/search?q="], ["sr", "https://reddit.com/r/"],
                                                                               ["sx", "https://stackexchange.com/search?q="], ["so", "https://stackoverflow.com/search?q="],
-                                                                              ["git", "https://github.com/search?q="], ["f", "https://www.facebook.com/public?query="],
+                                                                              ["gh", "https://github.com/search?q="], ["f", "https://www.facebook.com/public?query="],
                                                                               ["dict", "http://www.dict.cc/?s="]]);
     private static quickSearchHotkeyEnd: ConfigValue<string> = new ConfigValue("quickSearchHotkeyEnd", " ");
     private static useSearchSuggestions: ConfigValue<boolean> = new ConfigValue("useSearchSuggestions", true);
