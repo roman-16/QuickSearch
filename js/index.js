@@ -785,7 +785,7 @@ var Homepage = (function () {
         window.open(this.homepage + encodeURIComponent(value), "_self");
     };
     Homepage.prototype.isURL = function (url) {
-        var regex = new RegExp(/[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi);
+        var regex = new RegExp(/^([-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?)$/gmi);
         return regex.test(url);
     };
     Object.defineProperty(Homepage.prototype, "LinkStartsWith", {
