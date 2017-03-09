@@ -24,7 +24,7 @@
 
         this.searchSuggestions = new SearchSuggestions(this.searchSuggestionsDiv);
 
-        this.SearchSuggestions.listenToEvent("SearchSuggestionsClicked", this.searchSuggestionClicked.bind(this));
+        this.searchSuggestions.onSuggestionClick.listen(this.searchSuggestionClicked.bind(this));
 
         this.searchDiv.className = "searchDiv";
         this.searchInputDiv.className = "searchInputDiv";

@@ -14,7 +14,7 @@
         this.parent = parent;
         this.sidebar = new Sidebar(this.parent);
 
-        this.sidebar.listenToEvent("SidebarFirstExpand", this.addElements.bind(this));
+        this.sidebar.onFirstExpand.listen(this.addElements.bind(this));
     }
 
 
@@ -43,10 +43,10 @@
         this.saveButton = new Button("Save");
         this.saveButton.BackgroundColorHover = Config.ShapeColor.Value;
         this.saveButton.Margin = "0px 20px 0px 0px";
-        this.saveButton.listenToEvent("ButtonClicked", this.saveClicked.bind(this));
+        this.saveButton.onClick.listen(this.saveClicked.bind(this));
         this.resetButton = new Button("Reset");
         this.resetButton.BackgroundColorHover = Config.ShapeColor.Value;
-        this.resetButton.listenToEvent("ButtonClicked", this.resetClicked.bind(this));
+        this.resetButton.onClick.listen(this.resetClicked.bind(this));
         this.buttonLayout = new ParallelLayout(this.saveButton.getElement());
         this.buttonLayout.appendChild(this.resetButton.getElement());
 
@@ -124,7 +124,7 @@
 
         InformationBox.showText("Saved!", 1000);
 
-        InformationBox.listenToEvent("OnTextClose", function()
+        InformationBox.onTextClose.listen(function()
         {
             location.reload();
         }.bind(this));
@@ -136,7 +136,7 @@
 
         InformationBox.showText("Reseted!", 1000);
 
-        InformationBox.listenToEvent("OnTextClose", function()
+        InformationBox.onTextClose.listen(function()
         {
             location.reload();
         }.bind(this));

@@ -1,5 +1,7 @@
 ﻿class Button implements IButtonForm
 {
+    public onClick: QuickEvent = new QuickEvent();
+
     private value: string;
     private buttonDiv: HTMLDivElement = document.createElement("div");
     private button: HTMLButtonElement = document.createElement("button");
@@ -40,7 +42,7 @@
 
     private mouseClicked(ev: MouseEvent): void
     {
-        this.fireEvent("ButtonClicked");
+        this.onClick.fire(this);
     }
 
     private hovered(): void

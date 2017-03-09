@@ -1,5 +1,7 @@
 ﻿class SearchSuggestions
 {
+    public onSuggestionClick: QuickEvent = new QuickEvent();
+
     private parent: HTMLDivElement;
     private searchSuggestionsDiv: HTMLDivElement = document.createElement("div");
     private selectedButton: number | null = null;
@@ -283,6 +285,6 @@
 
     private mouseClicked(ev: MouseEvent): void
     {
-        ev.target.fireEvent("SearchSuggestionsClicked");
+        this.onSuggestionClick.fire(ev.target);
     }
 }

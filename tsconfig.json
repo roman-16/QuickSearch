@@ -12,11 +12,11 @@
         "target": "es5"
     },
     "include": [
-        "ts/Extensions/Object.ts",
         "ts/Extensions/String.ts",
         "ts/Extensions/Array.ts",
         "ts/Extensions/Element.ts",
         "ts/Extensions/Document.ts",
+        "ts/Util/QuickEvent.ts",
         "ts/Util/CookieHandler.ts",
         "ts/Config/ConfigValue/ConfigValue.ts",
         "ts/Config/Config.ts",

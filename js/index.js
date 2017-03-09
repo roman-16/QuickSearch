@@ -9,23 +9,6 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 "use strict";
-Object.prototype.CustomEventListeners = new Array();
-Object.prototype.listenToEvent = function listenToEvent(eventName, callback) {
-    this.CustomEventListeners.push([eventName, this, callback]);
-};
-Object.prototype.unlistenFromEvent = function unlistenFromEvent(eventName, callback) {
-    var index = this.CustomEventListeners.indexOf([eventName, this, callback]);
-    this.CustomEventListeners.splice(index, 1);
-};
-Object.prototype.fireEvent = function fireEvent(eventName) {
-    for (var i = 0; i < this.CustomEventListeners.length; i++) {
-        if (this.CustomEventListeners[i][0] === eventName &&
-            this.CustomEventListeners[i][1] == this) {
-            this.CustomEventListeners[i][2](this);
-        }
-    }
-};
-"use strict";
 String.prototype.startsWith = function startsWith(value) {
     return this.lastIndexOf(value, 0) === 0;
 };
@@ -63,6 +46,30 @@ Document.prototype.onClickOutside = function onClickOutside(div, callback) {
         }
     }.bind(this));
 };
+"use strict";
+var QuickEvent = (function () {
+    function QuickEvent() {
+        this.eventListeners = new Array();
+    }
+    QuickEvent.prototype.listen = function (callback) {
+        this.eventListeners.push(callback);
+    };
+    QuickEvent.prototype.unlisten = function (callback) {
+        var index = this.eventListeners.indexOf(callback);
+        this.eventListeners.splice(index, 1);
+    };
+    QuickEvent.prototype.isListen = function (callback) {
+        var index = this.eventListeners.indexOf(callback);
+        return index !== -1;
+    };
+    QuickEvent.prototype.fire = function (eventArgs) {
+        if (eventArgs === void 0) { eventArgs = {}; }
+        for (var i = 0; i < this.eventListeners.length; i++) {
+            this.eventListeners[i](eventArgs);
+        }
+    };
+    return QuickEvent;
+}());
 "use strict";
 var CookieHandler = (function () {
     function CookieHandler() {
@@ -371,6 +378,7 @@ var BigTextInput = (function () {
 "use strict";
 var Button = (function () {
     function Button(value) {
+        this.onClick = new QuickEvent();
         this.buttonDiv = document.createElement("div");
         this.button = document.createElement("button");
         this.isHovered = false;
@@ -395,7 +403,7 @@ var Button = (function () {
         return this.buttonDiv;
     };
     Button.prototype.mouseClicked = function (ev) {
-        this.fireEvent("ButtonClicked");
+        this.onClick.fire(this);
     };
     Button.prototype.hovered = function () {
         this.isHovered = true;
@@ -486,11 +494,12 @@ var InformationBox = (function () {
         this.informationDiv.style.display = "inline";
         setTimeout(function () {
             this.informationDiv.style.display = "none";
-            this.fireEvent("OnTextClose");
+            this.onTextClose.fire(this);
         }.bind(this), timeout);
     };
     return InformationBox;
 }());
+InformationBox.onTextClose = new QuickEvent();
 InformationBox.isInit = false;
 InformationBox.informationDiv = document.createElement("div");
 InformationBox.innerInformationDiv = document.createElement("div");
@@ -541,6 +550,7 @@ var Clock = (function () {
 "use strict";
 var SearchSuggestions = (function () {
     function SearchSuggestions(parent) {
+        this.onSuggestionClick = new QuickEvent();
         this.searchSuggestionsDiv = document.createElement("div");
         this.selectedButton = null;
         this.backgroundColor = "#757575";
@@ -734,7 +744,7 @@ var SearchSuggestions = (function () {
         return searchSuggestionButton;
     };
     SearchSuggestions.prototype.mouseClicked = function (ev) {
-        ev.target.fireEvent("SearchSuggestionsClicked");
+        this.onSuggestionClick.fire(ev.target);
     };
     return SearchSuggestions;
 }());
@@ -818,7 +828,7 @@ var Search = (function (_super) {
         _this.fontColorFocus = "#000000";
         _this.parent = parent;
         _this.searchSuggestions = new SearchSuggestions(_this.searchSuggestionsDiv);
-        _this.SearchSuggestions.listenToEvent("SearchSuggestionsClicked", _this.searchSuggestionClicked.bind(_this));
+        _this.searchSuggestions.onSuggestionClick.listen(_this.searchSuggestionClicked.bind(_this));
         _this.searchDiv.className = "searchDiv";
         _this.searchInputDiv.className = "searchInputDiv";
         _this.searchInput.className = "searchInput";
@@ -968,6 +978,7 @@ var Search = (function (_super) {
 "use strict";
 var Sidebar = (function () {
     function Sidebar(parent) {
+        this.onFirstExpand = new QuickEvent();
         this.sidebarDiv = document.createElement("div");
         this.menuIcon = document.createElement("i");
         this.menuButton = document.createElement("button");
@@ -1075,7 +1086,7 @@ var Sidebar = (function () {
     Sidebar.prototype.expand = function () {
         if (!this.isFirstExpanded) {
             //Fire event
-            this.fireEvent("SidebarFirstExpand");
+            this.onFirstExpand.fire(this);
             this.isFirstExpanded = true;
         }
         this.menuIcon.style.opacity = "0.0";
@@ -1138,7 +1149,7 @@ var Menubar = (function () {
         this.configChildren = new Array();
         this.parent = parent;
         this.sidebar = new Sidebar(this.parent);
-        this.sidebar.listenToEvent("SidebarFirstExpand", this.addElements.bind(this));
+        this.sidebar.onFirstExpand.listen(this.addElements.bind(this));
     }
     Object.defineProperty(Menubar.prototype, "Sidebar", {
         get: function () {
@@ -1161,10 +1172,10 @@ var Menubar = (function () {
         this.saveButton = new Button("Save");
         this.saveButton.BackgroundColorHover = Config.ShapeColor.Value;
         this.saveButton.Margin = "0px 20px 0px 0px";
-        this.saveButton.listenToEvent("ButtonClicked", this.saveClicked.bind(this));
+        this.saveButton.onClick.listen(this.saveClicked.bind(this));
         this.resetButton = new Button("Reset");
         this.resetButton.BackgroundColorHover = Config.ShapeColor.Value;
-        this.resetButton.listenToEvent("ButtonClicked", this.resetClicked.bind(this));
+        this.resetButton.onClick.listen(this.resetClicked.bind(this));
         this.buttonLayout = new ParallelLayout(this.saveButton.getElement());
         this.buttonLayout.appendChild(this.resetButton.getElement());
         this.sidebar.appendLayout(this.buttonLayout);
@@ -1219,14 +1230,14 @@ var Menubar = (function () {
             this.configChildren[i].saveStringifiedValue(inputChildren[i].Value);
         }
         InformationBox.showText("Saved!", 1000);
-        InformationBox.listenToEvent("OnTextClose", function () {
+        InformationBox.onTextClose.listen(function () {
             location.reload();
         }.bind(this));
     };
     Menubar.prototype.resetClicked = function (target) {
         Config.reset();
         InformationBox.showText("Reseted!", 1000);
-        InformationBox.listenToEvent("OnTextClose", function () {
+        InformationBox.onTextClose.listen(function () {
             location.reload();
         }.bind(this));
     };

@@ -1,5 +1,7 @@
 class InformationBox
 {
+    public static onTextClose: QuickEvent = new QuickEvent();
+
     private static isInit: boolean = false;
     private static informationDiv: HTMLDivElement = document.createElement("div");
     private static innerInformationDiv: HTMLDivElement = document.createElement("div");
@@ -39,7 +41,7 @@ class InformationBox
         {
             this.informationDiv.style.display = "none";
 
-            this.fireEvent("OnTextClose");
+            this.onTextClose.fire(this);
         }.bind(this), timeout);
     }
 }

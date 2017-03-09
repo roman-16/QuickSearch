@@ -1,5 +1,7 @@
 ﻿class Sidebar
 {
+    public onFirstExpand: QuickEvent = new QuickEvent();
+
     private parent: HTMLDivElement;
     private sidebarDiv: HTMLDivElement = document.createElement("div");
     private menuIcon: HTMLElement = document.createElement("i");
@@ -127,7 +129,7 @@
         if (!this.isFirstExpanded)
         {
             //Fire event
-            this.fireEvent("SidebarFirstExpand");
+            this.onFirstExpand.fire(this);
 
             this.isFirstExpanded = true;
         }
