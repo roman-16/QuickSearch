@@ -7,12 +7,7 @@
     private searchSuggestionsDiv: HTMLDivElement = document.createElement("div");
     private searchSuggestions: SearchSuggestions;
     private useSearchSuggestions: boolean = true;
-    private backgroundColor: string = "#363636";
-    private backgroundColorFocus: string = "#525252";
-    private borderColor: string = "#363636";
-    private borderColorFocus: string = "#525252";
-    private fontColor: string = "#3a5b83";
-    private fontColorFocus: string = "#000000";
+    private shapeColor: string = "#3a5b83";
 
 
 
@@ -60,34 +55,9 @@
         this.useSearchSuggestions = value;
     }
 
-    public set BackgroundColor(value: string)
+    public set ShapeColor(value: string)
     {
-        this.backgroundColor = value;
-    }
-
-    public set BackgroundColorFocus(value: string)
-    {
-        this.backgroundColorFocus = value;
-    }
-
-    public set BorderColor(value: string)
-    {
-        this.borderColor = value;
-    }
-
-    public set BorderColorFocus(value: string)
-    {
-        this.borderColorFocus = value;
-    }
-
-    public set FontColor(value: string)
-    {
-        this.fontColor = value;
-    }
-
-    public set FontColorFocus(value: string)
-    {
-        this.fontColorFocus = value;
+        this.shapeColor = value;
     }
 
 
@@ -127,16 +97,16 @@
 
     private focused(ev: FocusEvent): void
     {
-        this.searchInput.style.backgroundColor = this.backgroundColorFocus;
-        this.searchInput.style.borderColor = this.borderColorFocus;
-        this.searchInput.style.color = this.fontColorFocus;
+        this.searchInput.style.backgroundColor = "#525252";
+        this.searchInput.style.borderColor = "#525252";
+        this.searchInput.style.color = "#000000";
     }
 
     private blured(ev: FocusEvent): void
     {
-        this.searchInput.style.backgroundColor = this.backgroundColor;
-        this.searchInput.style.borderColor = this.borderColor;
-        this.searchInput.style.color = this.fontColor;
+        this.searchInput.style.backgroundColor = "#363636";
+        this.searchInput.style.borderColor = this.shapeColor;
+        this.searchInput.style.color = this.shapeColor;
     }
 
     private searchSuggestionClicked(target: Object): void

@@ -820,12 +820,7 @@ var Search = (function (_super) {
         _this.searchInput = document.createElement("input");
         _this.searchSuggestionsDiv = document.createElement("div");
         _this.useSearchSuggestions = true;
-        _this.backgroundColor = "#363636";
-        _this.backgroundColorFocus = "#525252";
-        _this.borderColor = "#363636";
-        _this.borderColorFocus = "#525252";
-        _this.fontColor = "#3a5b83";
-        _this.fontColorFocus = "#000000";
+        _this.shapeColor = "#3a5b83";
         _this.parent = parent;
         _this.searchSuggestions = new SearchSuggestions(_this.searchSuggestionsDiv);
         _this.searchSuggestions.onSuggestionClick.listen(_this.searchSuggestionClicked.bind(_this));
@@ -862,44 +857,9 @@ var Search = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(Search.prototype, "BackgroundColor", {
+    Object.defineProperty(Search.prototype, "ShapeColor", {
         set: function (value) {
-            this.backgroundColor = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Search.prototype, "BackgroundColorFocus", {
-        set: function (value) {
-            this.backgroundColorFocus = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Search.prototype, "BorderColor", {
-        set: function (value) {
-            this.borderColor = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Search.prototype, "BorderColorFocus", {
-        set: function (value) {
-            this.borderColorFocus = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Search.prototype, "FontColor", {
-        set: function (value) {
-            this.fontColor = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Search.prototype, "FontColorFocus", {
-        set: function (value) {
-            this.fontColorFocus = value;
+            this.shapeColor = value;
         },
         enumerable: true,
         configurable: true
@@ -929,14 +889,14 @@ var Search = (function (_super) {
         this.searchInput.value = value;
     };
     Search.prototype.focused = function (ev) {
-        this.searchInput.style.backgroundColor = this.backgroundColorFocus;
-        this.searchInput.style.borderColor = this.borderColorFocus;
-        this.searchInput.style.color = this.fontColorFocus;
+        this.searchInput.style.backgroundColor = "#525252";
+        this.searchInput.style.borderColor = "#525252";
+        this.searchInput.style.color = "#000000";
     };
     Search.prototype.blured = function (ev) {
-        this.searchInput.style.backgroundColor = this.backgroundColor;
-        this.searchInput.style.borderColor = this.borderColor;
-        this.searchInput.style.color = this.fontColor;
+        this.searchInput.style.backgroundColor = "#363636";
+        this.searchInput.style.borderColor = this.shapeColor;
+        this.searchInput.style.color = this.shapeColor;
     };
     Search.prototype.searchSuggestionClicked = function (target) {
         this.searchInput.value = this.keepQuickSearchHotkey(this.searchInput.value) + target.value;
@@ -1268,7 +1228,6 @@ var Index = (function () {
         //TODO: show current quicksearch
         //TODO: show help page
         //TODO: Show little popup ("search something...") on first start
-        //TODO: Rework link detection
         //TODO: save visited websites and put them in the searchbox on search (but not in the searchsuggestion)
     };
     Index.setColors = function () {
@@ -1278,8 +1237,9 @@ var Index = (function () {
         this.clock.Color = Config.ShapeColor.Value;
         //Set search input color
         //FIXME: strange color on reload
-        this.search.BorderColor = Config.ShapeColor.Value;
-        this.search.FontColor = Config.ShapeColor.Value;
+        this.search.ShapeColor = Config.ShapeColor.Value;
+        //this.search.BorderColor = Config.ShapeColor.Value;
+        //this.search.FontColor = Config.ShapeColor.Value;
         //Set search suggestions color
         var searchSuggestions = this.search.SearchSuggestions;
         searchSuggestions.BackgroundColorFocus = Config.ShapeColor.Value;

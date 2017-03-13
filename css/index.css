@@ -102,7 +102,9 @@
   box-sizing: border-box;
   padding: 6px 6px 6px 6px;
   width: 100%;
-  border: 2px solid;
+  background-color: #363636;
+  border: 2px solid #3a5b83;
+  color: #3a5b83;
   transition: background-color 200ms, border 200ms, color 200ms;
 }
 
