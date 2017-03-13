@@ -106,6 +106,8 @@ var ConfigValue = (function () {
         localStorage.setItem(this.name, stringifiedValue);
     };
     ConfigValue.prototype.isSavedValue = function () {
+        if (!navigator.cookieEnabled)
+            return false;
         return localStorage.getItem(this.name) !== null;
     };
     Object.defineProperty(ConfigValue.prototype, "Name", {
@@ -1171,6 +1173,10 @@ var Menubar = (function () {
         this.configChildren.push(config);
     };
     Menubar.prototype.saveClicked = function (target) {
+        if (!navigator.cookieEnabled) {
+            InformationBox.showText("You need to enable cookies!", 2000);
+            return;
+        }
         var inputChildren = this.sidebar.InputChildren;
         for (var i = 0; i < inputChildren.length; i++) {
             try {
@@ -1193,6 +1199,10 @@ var Menubar = (function () {
         }.bind(this));
     };
     Menubar.prototype.resetClicked = function (target) {
+        if (!navigator.cookieEnabled) {
+            InformationBox.showText("You need to enable cookies!", 2000);
+            return;
+        }
         Config.reset();
         InformationBox.showText("Reseted!", 1000);
         InformationBox.onTextClose.listen(function () {

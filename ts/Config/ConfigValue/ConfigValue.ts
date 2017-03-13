@@ -40,6 +40,9 @@
 
     public isSavedValue(): boolean
     {
+        if (!navigator.cookieEnabled)
+            return false;
+        
         return localStorage.getItem(this.name) !== null;
     }
 
