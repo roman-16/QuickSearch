@@ -21,4 +21,4 @@ Clone or download the repository and open the [index.html](https://github.com/Wa
 Future projects will be shown on the [project page](https://github.com/Wavum/QuickSearch/projects).
 
 # Version
-v2.1
+v2.2
