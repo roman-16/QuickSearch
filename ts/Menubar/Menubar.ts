@@ -99,6 +99,13 @@
 
     private saveClicked(target: Object): void
     {
+        if (!navigator.cookieEnabled)
+        {
+            InformationBox.showText("You need to enable cookies!", 2000);
+
+            return;
+        }
+
         let inputChildren: Array<IInputForm> = this.sidebar.InputChildren;
 
         for (let i: number = 0; i < inputChildren.length; i++)
@@ -132,6 +139,13 @@
 
     private resetClicked(target: Object): void
     {
+        if (!navigator.cookieEnabled)
+        {
+            InformationBox.showText("You need to enable cookies!", 2000);
+
+            return;
+        }
+        
         Config.reset();
 
         InformationBox.showText("Reseted!", 1000);

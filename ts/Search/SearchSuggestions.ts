@@ -46,7 +46,7 @@
                 {
                     this.currentSearchSuggestionsData = data;
 
-                    this.createSearchSuggestions(data.query.results.json.json[1]);
+                    this.createSearchSuggestions(data[1]);
                 }
             }.bind(this));
         }
@@ -230,12 +230,12 @@
         }
     }
 
-    private createSearchSuggestions(json: any): void
+    private createSearchSuggestions(data: any): void
     {
         //Check for no result
-        if (json !== null)
+        if (data !== null)
         {
-            let results: any = json.json;
+            let results: any = data;
             let maxResults: number = Config.NumberOfSearchSuggestions.Value;
 
             this.searchSuggestionsDiv.innerHTML = "";

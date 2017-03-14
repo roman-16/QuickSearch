@@ -106,6 +106,8 @@ var ConfigValue = (function () {
         localStorage.setItem(this.name, stringifiedValue);
     };
     ConfigValue.prototype.isSavedValue = function () {
+        if (!navigator.cookieEnabled)
+            return false;
         return localStorage.getItem(this.name) !== null;
     };
     Object.defineProperty(ConfigValue.prototype, "Name", {
@@ -237,9 +239,7 @@ var GoogleData = (function () {
                 script.remove();
         };
         var s = document.createElement("script");
-        s.src = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20json%20where%20url%3D%22http%3A%2F%2Fsuggestqueries.google.com%2Fcomplete%2Fsearch%3Fclient%3Dfirefox%26q%3D" +
-            encodeURIComponent(encodeURIComponent(value)) +
-            "%22%20&format=json&callback=GoogleData.getSearchSuggestions." + id;
+        s.src = "http://suggestqueries.google.com/complete/search?client=chrome&q=" + encodeURIComponent(value) + "&callback=GoogleData.getSearchSuggestions." + id;
         s.id = "searchSuggestionsQuery" + id;
         document.getElementsByTagName("*")[1].appendChild(s);
     };
@@ -573,7 +573,7 @@ var SearchSuggestions = (function () {
                 }
                 if (this.currentSearchSuggestionsData.executionTime <= data.executionTime && !this.inputValue.isEmpty()) {
                     this.currentSearchSuggestionsData = data;
-                    this.createSearchSuggestions(data.query.results.json.json[1]);
+                    this.createSearchSuggestions(data[1]);
                 }
             }.bind(this));
         }
@@ -706,10 +706,10 @@ var SearchSuggestions = (function () {
             this.selectedButton = null;
         }
     };
-    SearchSuggestions.prototype.createSearchSuggestions = function (json) {
+    SearchSuggestions.prototype.createSearchSuggestions = function (data) {
         //Check for no result
-        if (json !== null) {
-            var results = json.json;
+        if (data !== null) {
+            var results = data;
             var maxResults = Config.NumberOfSearchSuggestions.Value;
             this.searchSuggestionsDiv.innerHTML = "";
             if (results instanceof Array) {
@@ -1173,6 +1173,10 @@ var Menubar = (function () {
         this.configChildren.push(config);
     };
     Menubar.prototype.saveClicked = function (target) {
+        if (!navigator.cookieEnabled) {
+            InformationBox.showText("You need to enable cookies!", 2000);
+            return;
+        }
         var inputChildren = this.sidebar.InputChildren;
         for (var i = 0; i < inputChildren.length; i++) {
             try {
@@ -1195,6 +1199,10 @@ var Menubar = (function () {
         }.bind(this));
     };
     Menubar.prototype.resetClicked = function (target) {
+        if (!navigator.cookieEnabled) {
+            InformationBox.showText("You need to enable cookies!", 2000);
+            return;
+        }
         Config.reset();
         InformationBox.showText("Reseted!", 1000);
         InformationBox.onTextClose.listen(function () {
