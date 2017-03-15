@@ -9,10 +9,10 @@ For example `g test` will open [Google](https://encrypted.google.com/#q=test) wi
 More quicksearches on websites can be added in the [config file](https://github.com/Wavum/wavum.github.io/blob/master/ts/Config/Config.ts).
 
 ## SeachSuggestions
-[QuickSearch](http://quicksearch.site) uses [Google-Searchsuggestion](https://suggestqueries.google.com/complete/search?output=toolbar&q=test) which can be turned off with the [config file](https://github.com/Wavum/wavum.github.io/blob/master/ts/Config/Config.ts).
+[QuickSearch](http://quicksearch.site) uses [Google-Searchsuggestion](https://suggestqueries.google.com/complete/search?output=toolbar&q=test) which can be turned off with the [config file](https://github.com/Wavum/wavum.github.io/blob/master/ts/Config/Config.ts) or over the sidebar on the [website](http://quicksearch.site).
 
 ## Config
-The you can edit your [QuickSearch](http://quicksearch.site) with a [config file](https://github.com/Wavum/wavum.github.io/blob/master/ts/Config/Config.ts).
+The you can edit your [QuickSearch](http://quicksearch.site) with the [config file](https://github.com/Wavum/wavum.github.io/blob/master/ts/Config/Config.ts) or over the sidebar on the [website](http://quicksearch.site).
 
 # Installation
 Clone or download the repository and open the [index.html](https://github.com/Wavum/wavum.github.io/blob/master/index.html) with your favorite browser.
