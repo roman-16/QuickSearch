@@ -17,6 +17,9 @@ The you can edit your [QuickSearch](http://quicksearch.site) with the [config fi
 # Installation
 Clone or download the repository and open the [index.html](https://github.com/Wavum/wavum.github.io/blob/master/index.html) with your favorite browser.
 
+# Beta
+The beta can be tested on the [github page](https://wavum.github.io/QuickSearch/).
+
 # Future
 Future projects will be shown on the [project page](https://github.com/Wavum/QuickSearch/projects).
 
