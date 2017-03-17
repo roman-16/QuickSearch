@@ -1,5 +1,6 @@
 ﻿{
-    "compilerOptions": {
+    "compilerOptions":
+    {
         "alwaysStrict": true,
         "noFallthroughCasesInSwitch": true,
         "noImplicitReturns": true,
@@ -11,7 +12,8 @@
         "outFile": "js/index.js",
         "target": "es5"
     },
-    "include": [
+    "include":
+    [
         "ts/Extensions/String.ts",
         "ts/Extensions/Array.ts",
         "ts/Extensions/Element.ts",

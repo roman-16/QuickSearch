@@ -1,0 +1,8 @@
+{
+    "recommendations":
+    [
+        "dbaeumer.vscode-eslint",
+        "wayou.vscode-todo-highlight",
+        "eg2.tslint"
+    ]
+}
