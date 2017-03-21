@@ -9,8 +9,8 @@
         "preserveConstEnums": true,
         "sourceMap": true,
         "compileOnSave": true,
-        "outFile": "js/index.js",
-        "target": "es5"
+        "target": "es5",
+        "outFile": "js/index.js"
     },
     "include":
     [
