@@ -1,4 +1,4 @@
-﻿window.onload = function()
+window.onload = function()
 {
     Index.main();
 }
@@ -39,7 +39,7 @@ class Index
         //TODO: show current quicksearch
         //TODO: show help page
         //TODO: Show little popup ("search something...") on first start
-		//TODO: save visited websites and put them in the searchbox on search (but not in the searchsuggestion)
+        //TODO: save visited websites and put them in the searchbox on search (but not in the searchsuggestion)
     }
 
 
@@ -53,10 +53,7 @@ class Index
         this.clock.Color = Config.ShapeColor.Value;
 
         //Set search input color
-        //FIXME: strange color on reload
         this.search.ShapeColor = Config.ShapeColor.Value;
-        //this.search.BorderColor = Config.ShapeColor.Value;
-        //this.search.FontColor = Config.ShapeColor.Value;
 
         //Set search suggestions color
         let searchSuggestions: SearchSuggestions = this.search.SearchSuggestions;
