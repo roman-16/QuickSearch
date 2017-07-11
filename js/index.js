@@ -239,7 +239,7 @@ var GoogleData = (function () {
                 script.remove();
         };
         var s = document.createElement("script");
-        s.src = "http://suggestqueries.google.com/complete/search?client=chrome&q=" + encodeURIComponent(value) + "&callback=GoogleData.getSearchSuggestions." + id;
+        s.src = "https://suggestqueries.google.com/complete/search?client=chrome&q=" + encodeURIComponent(value) + "&callback=GoogleData.getSearchSuggestions." + id;
         s.id = "searchSuggestionsQuery" + id;
         document.getElementsByTagName("*")[1].appendChild(s);
     };
