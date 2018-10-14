@@ -8,7 +8,8 @@
                                                                               ["r", "https://reddit.com/search?q="], ["sr", "https://reddit.com/r/"],
                                                                               ["sx", "https://stackexchange.com/search?q="], ["so", "https://stackoverflow.com/search?q="],
                                                                               ["gh", "https://github.com/search?q="], ["f", "https://www.facebook.com/public?query="],
-                                                                              ["dict", "http://www.dict.cc/?s="], ["ama", "https://www.amazon.de/s/field-keywords="]]);
+                                                                              ["dict", "http://www.dict.cc/?s="], ["ama", "https://www.amazon.de/s/field-keywords="],
+                                                                              ["alt", "https://alternativeto.net/browse/search?q="]]);
     private static quickSearchHotkeyEnd: ConfigValue<string> = new ConfigValue("quickSearchHotkeyEnd", " ");
     private static useSearchSuggestions: ConfigValue<boolean> = new ConfigValue("useSearchSuggestions", true);
     private static numberOfSearchSuggestions: ConfigValue<number> = new ConfigValue("numberOfSearchSuggestions", 4);
